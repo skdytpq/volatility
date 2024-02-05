@@ -72,9 +72,9 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                 pred_i[iteration] = forecast
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
-            samples = forecast
-            forecast =  v_batch[:, 0] * forecast + v_batch[:, 1]
+            samples = forecast # iter batch len -> 200 256 6
             sample_mu = torch.mean(forecast,axis=0 )
+            pdb.set_trace()
             sample_mu = v_batch[:, 0] * sample_mu + v_batch[:, 1]
             sample_sigma = torch.std(forecast,axis=0) * v_batch[:,0]
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
