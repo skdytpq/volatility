@@ -7,7 +7,7 @@ import numpy as np
 import torch
 from torch.utils.data.sampler import RandomSampler
 from tqdm import tqdm
-
+import pdb
 import utils
 from model import NBeatsNet
 from dataloader import *
@@ -72,6 +72,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             for iteration in range(mc_samples):
                 _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
                 pred_i.append(forecast)
+            pdb.set_trace()
             forecast = torch.Tensor(pred_i)
             samples = forecast
             sample_mu = torch.mean(forecast)
