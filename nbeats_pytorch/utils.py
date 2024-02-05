@@ -7,7 +7,7 @@ from torch.nn import functional as F
 import torch
 import numpy as np
 from tqdm import tqdm
-
+import pdb
 import matplotlib
 matplotlib.use('Agg')
 #matplotlib.rcParams['savefig.dpi'] = 300 #Uncomment for higher plot resolutions
@@ -251,6 +251,7 @@ def accuracy_ROU(rou: float, samples: torch.Tensor, labels: torch.Tensor, relati
         return [numerator, denominator]
 
 def accuracy_ND_(mu: torch.Tensor, labels: torch.Tensor, relative = False):
+    pdb.set_trace()
     mu = mu.detach().cpu().numpy()
     labels = labels.detach().cpu().numpy()
 
