@@ -20,7 +20,7 @@ class NBeatsNet(nn.Module):
 
     def __init__(
             self,
-            device=torch.device('cuda'),
+            device=torch.device('gpu'),
             stack_types=(TREND_BLOCK, SEASONALITY_BLOCK),
             nb_blocks_per_stack=3,
             forecast_length=5,
@@ -188,14 +188,12 @@ class NBeatsNet(nn.Module):
         return g_pred, i_pred, outputs
 
     def forward(self, backcast):
-        pdb.set_trace()
         self._intermediary_outputs = []
         backcast = squeeze_last_dim(backcast)
         forecast = torch.zeros(size=(backcast.size()[0], self.forecast_length,))  # maybe batch size here.
-        backcast = torch.matmul(backcast.T,backcast).unsqueeze(0) # Considering Batch
+      #  backcast = torch.matmul(backcast.T,backcast).unsqueeze(0) # Considering Batch?
         for stack_id in range(len(self.stacks)):
             for block_id in range(len(self.stacks[stack_id])):
-                pdb.set_trace()
                 b, f = self.stacks[stack_id][block_id](backcast)
                 backcast = backcast.to(self.device) - b
                 forecast = forecast.to(self.device) + f
