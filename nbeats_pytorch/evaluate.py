@@ -44,7 +44,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
       plot_batch = np.random.randint(len(test_loader)-1)
 
       summary_metric = {}
-      raw_metrics = utils.init_metrics(sample=sample)
+      raw_metrics = utils.init_metrics(sample=True)
       pdb.set_trace()
 
       # Test_loader: 
