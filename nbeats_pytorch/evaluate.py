@@ -73,10 +73,13 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
             samples = forecast # iter batch len -> 200 256 6
+            v_ = v_batch[:,0].unsqueeze(1)
+            v_1 = v_batch[:,1].unsqueeze(1)
+            v_ = v_.expand(256,6)
+            v_1 = v_1.expand(256,6)
             sample_mu = torch.mean(forecast,axis=0 )
-            pdb.set_trace()
-            sample_mu = v_batch[:, 0] * sample_mu + v_batch[:, 1]
-            sample_sigma = torch.std(forecast,axis=0) * v_batch[:,0]
+            sample_mu = v_[:, 0] * sample_mu + v_1
+            sample_sigma = torch.std(forecast,axis=0) * v_1
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
@@ -139,7 +142,6 @@ def plot_eight_windows(plot_dir,
             ax[k].set_title('This separates top 10 and bottom 90', fontsize=10)
             continue
         m = k if k < 10 else k - 1
-        pdb.set_trace()
         ax[k].plot(x, predict_values[m], color='b')
         ax[k].fill_between(x[predict_start :], predict_values[m, predict_start :] - 2 * predict_sigma[m, predict_start:],
                          predict_values[m, predict_start:] + 2 * predict_sigma[m, predict_start:], color='blue',
