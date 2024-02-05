@@ -74,7 +74,6 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                 _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
                 pred_i[iteration] = forecast
             pdb.set_trace()
-            pred_i.detach().numpy()
             forecast = torch.Tensor(pred_i)
             samples = forecast
             sample_mu = torch.mean(forecast)
