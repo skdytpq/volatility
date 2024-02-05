@@ -58,12 +58,12 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           labels = labels.to(torch.float32).to(params.device)
           test_batch = test_batch[:,:,0].unsqueeze(-1)
           batch_size = test_batch.shape[1]
-
+          pdb.set_trace()
 
           test_batch = test_batch.to(torch.float32).to(params.device)  # not scaled
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled
-          labels_batch = test_batch[:,:,0][:,-1].unsqueeze(-1)
-          test_batch = test_batch[:,:,0][:,:-1] # 24 , batch , 1
+          labels_batch = test_batch[:,:,0][:,-1].unsqueeze(-1) # Batch X 1
+          test_batch = test_batch[:,:,0][:,:-1] # 23 , batch , 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 100
@@ -102,14 +102,13 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
               else:
                   random_sample_90 = np.random.choice(not_chosen, size=10, replace=False)
               combined_sample = np.concatenate((random_sample_10, random_sample_90))
-
+              # Labels 는 forecast를 해야하는 Label 데이터
               label_plot = labels[combined_sample].data.cpu().numpy() # 실제 라벨 값
               predict_mu = sample_mu[combined_sample].data.cpu().numpy()
               predict_sigma = sample_sigma[combined_sample].data.cpu().numpy()
               plot_mu = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_mu), axis=1)
               plot_sigma = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_sigma), axis=1)
               plot_metrics = {_k: _v[combined_sample] for _k, _v in sample_metrics.items()}
-              pdb.set_trace()
               plot_eight_windows(params.plot_dir, plot_mu, plot_sigma, label_plot, params.test_window, params.test_predict_start, plot_num, plot_metrics, sample)
 
       summary_metric = utils.final_metrics(raw_metrics, sampling=sample)
@@ -143,7 +142,7 @@ def plot_eight_windows(plot_dir,
         m = k if k < 10 else k - 1
         pdb.set_trace()
         ax[k].plot(x, predict_values[m], color='b')
-        ax[k].fill_between(x[predict_start -1 :], predict_values[m, predict_start -1 :] - 2 * predict_sigma[m, predict_start-1:],
+        ax[k].fill_between(x[predict_start :], predict_values[m, predict_start :] - 2 * predict_sigma[m, predict_start-1:],
                          predict_values[m, predict_start-1:] + 2 * predict_sigma[m, predict_start-1:], color='blue',
                          alpha=0.2)
         ax[k].plot(x, labels[m, :], color='r')
