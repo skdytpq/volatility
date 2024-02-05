@@ -209,6 +209,8 @@ def final_metrics(raw_metrics, sampling=False):
     return summary_metric
 def accuracy_ND(mu: torch.Tensor, labels: torch.Tensor, relative = False):
     zero_index = (labels != 0)
+    mu = mu.cpu().detach().numpy()
+    labels = labels.cpu().detach().numpy()
     if relative:
         diff = torch.mean(torch.abs(mu[zero_index] - labels[zero_index])).item()
         return [diff, 1]
@@ -232,6 +234,8 @@ def accuracy_ROU(rou: float, samples: torch.Tensor, labels: torch.Tensor, relati
     numerator = 0
     denominator = 0
     pred_samples = samples.shape[0]
+    samples = samples.cpu().detach().numpy()
+    labels = labels.cpu().detach().numpy()
     for t in range(labels.shape[1]):
         zero_index = (labels[:, t] != 0)
         if zero_index.numel() > 0:
