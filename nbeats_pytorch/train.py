@@ -24,7 +24,7 @@ logger = logging.getLogger('DeepAR.Train')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='', help='Name of the dataset')
-parser.add_argument('--data-folder', default='../../traindata', help='Parent dir of the dataset')
+parser.add_argument('--data-folder', default='../traindata', help='Parent dir of the dataset')
 parser.add_argument('--model-name', default='content', help='Directory containing params.json')
 parser.add_argument('--relative-metrics', action='store_true', help='Whether to normalize the metrics by label scales')
 parser.add_argument('--sampling', action='store_true', help='Whether to sample during evaluation')
