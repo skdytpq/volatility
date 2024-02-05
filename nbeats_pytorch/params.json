@@ -16,4 +16,5 @@
     "sample_times": 200,
     "lstm_dropout": 0.1,
     "predict_batch": 256
+
 }

@@ -114,7 +114,7 @@ def train_and_evaluate(model: nn.Module,
         logger.info('Epoch {}/{}'.format(epoch + 1, params.num_epochs))
         loss_summary[epoch * train_len:(epoch + 1) * train_len] = train(model, optimizer, loss_fn, train_loader,
                                                                         test_loader, params, epoch)
-        test_metrics = evaluate(model, loss_fn, test_loader, params, epoch, sample=args.sampling)
+        test_metrics = evaluate(model, loss_fn, test_loader, params, epoch, sample=True)#args.sampling)# always True
         ND_summary[epoch] = test_metrics['ND']
         is_best = ND_summary[epoch] <= best_test_ND
 
