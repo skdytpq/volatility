@@ -65,7 +65,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           labels_batch = test_batch[:,:,0][:,-1]
           test_batch = test_batch[:,:,0][:,:-1] # 24 , batch , 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
-          idx = idx.unsqueeze(0).to(params.device)
+      #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 100
           pred_i = []
           if sample:
