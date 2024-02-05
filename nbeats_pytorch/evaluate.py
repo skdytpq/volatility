@@ -107,6 +107,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                   random_sample_90 = np.random.choice(not_chosen, size=10, replace=False)
               combined_sample = np.concatenate((random_sample_10, random_sample_90))
               # Labels 는 forecast를 해야하는 Label 데이터
+              pdb.set_trace()
               label_plot = labels[combined_sample].data.cpu().numpy() # 실제 라벨 값
               predict_mu = sample_mu[combined_sample].data.cpu().numpy()
               predict_sigma = sample_sigma[combined_sample].data.cpu().numpy()
