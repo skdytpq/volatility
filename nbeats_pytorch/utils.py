@@ -208,6 +208,7 @@ def final_metrics(raw_metrics, sampling=False):
         summary_metric['rou50'] = raw_metrics['rou50'][0] / raw_metrics['rou50'][1]
     return summary_metric
 def accuracy_ND(mu: torch.Tensor, labels: torch.Tensor, relative = False):
+    pdb.set_trace()
     zero_index = (labels != 0)
     mu = mu.cpu().detach().numpy()
     labels = labels.cpu().detach().numpy()
