@@ -14,7 +14,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import math
 #import model.net as net
-import model as net
+from model import NBeatsNet
 logger = logging.getLogger('DeepAR.Utils')
 
 
@@ -189,7 +189,7 @@ def update_metrics(raw_metrics, input_mu, sample_mu, labels, predict_start, samp
     raw_metrics['RMSE'] = raw_metrics['RMSE'] + accuracy_RMSE(sample_mu, labels, relative=relative)
     input_time_steps = input_mu.numel()
     raw_metrics['test_loss'] = raw_metrics['test_loss'] + [
-        F.mse_loss(sample_mu, torch.tensor(labels, dtype=torch.float).to(net.device)) * input_time_steps, input_time_steps]
+        F.mse_loss(sample_mu, torch.tensor(labels, dtype=torch.float).to(NBeatsNet.device)) * input_time_steps, input_time_steps]
 
     if samples is not None:
         raw_metrics['rou90'] = raw_metrics['rou90'] + accuracy_ROU(0.9, samples, labels, relative=relative)

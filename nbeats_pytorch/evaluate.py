@@ -103,11 +103,11 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                   random_sample_90 = np.random.choice(not_chosen, size=10, replace=False)
               combined_sample = np.concatenate((random_sample_10, random_sample_90))
 
-              label_plot = labels[combined_sample].data.cpu().numpy()
+              label_plot = labels[combined_sample].data.cpu().numpy() # 실제 라벨 값
               predict_mu = sample_mu[combined_sample].data.cpu().numpy()
               predict_sigma = sample_sigma[combined_sample].data.cpu().numpy()
-              plot_mu = np.concatenate((input_mu[combined_sample].data.cpu().numpy(), predict_mu), axis=1)
-              plot_sigma = np.concatenate((input_sigma[combined_sample].data.cpu().numpy(), predict_sigma), axis=1)
+              plot_mu = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_mu), axis=1)
+              plot_sigma = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_sigma), axis=1)
               plot_metrics = {_k: _v[combined_sample] for _k, _v in sample_metrics.items()}
               plot_eight_windows(params.plot_dir, plot_mu, plot_sigma, label_plot, params.test_window, params.test_predict_start, plot_num, plot_metrics, sample)
 
