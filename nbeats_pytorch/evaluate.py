@@ -68,6 +68,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
       #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 100
           pred_i = []
+          sample = True
           if sample:
             for iteration in range(mc_samples):
                 _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
@@ -79,7 +80,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             sample_sigma = torch.var(forecast)**(1/2)
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels, params.forecast_length, samples, relative = params.relative_metrics)
           else:
-              sample_sigma,sample_mu = _, forecast = net(torch.tensor(test_batch, dtype=torch.float).to(params.device))
+              sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
               raw_metrics = utils.update_metrics(raw_metrics, forecast, sample_mu, labels, params.test_predict_start, relative = params.relative_metrics)
 
           if i == plot_batch:
