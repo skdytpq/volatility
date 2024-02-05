@@ -137,6 +137,7 @@ def plot_eight_windows(plot_dir,
             ax[k].set_title('This separates top 10 and bottom 90', fontsize=10)
             continue
         m = k if k < 10 else k - 1
+        pdb.set_trace()
         ax[k].plot(x, predict_values[m], color='b')
         ax[k].fill_between(x[predict_start :], predict_values[m, predict_start :] - 2 * predict_sigma[m, predict_start:],
                          predict_values[m, predict_start:] + 2 * predict_sigma[m, predict_start:], color='blue',
