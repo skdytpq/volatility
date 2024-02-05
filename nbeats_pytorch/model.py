@@ -20,7 +20,7 @@ class NBeatsNet(nn.Module):
 
     def __init__(
             self,
-            device=torch.device('cuda'),    
+            device=torch.device('cuda')  , 
             stack_types=(TREND_BLOCK, SEASONALITY_BLOCK),
             nb_blocks_per_stack=3,
             forecast_length=5,
