@@ -1,5 +1,7 @@
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
+import sys
+sys.path.append("./")
 import argparse
 import logging
 import os
@@ -69,7 +71,7 @@ def train(model: nn.Module,
         loss = torch.zeros(1, device=params.device)
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
         loss = F.mse_loss(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
-        loss.backward() 
+        loss.backward()  
         optimizer.step()
         loss = loss.item() / params.train_window  # loss per timestep
         loss_epoch[i] = loss

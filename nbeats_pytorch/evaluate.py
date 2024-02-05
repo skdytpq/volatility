@@ -1,7 +1,8 @@
 import argparse
 import logging
 import os
-
+import sys
+sys.path.append("./")
 import numpy as np
 import torch
 from torch.utils.data.sampler import RandomSampler
@@ -194,7 +195,7 @@ if __name__ == '__main__':
         forecast_length=params.forecast_length,
         backcast_length=params.backcast_length,
         hidden_layer_units=128,
-    )
+    ).to('cpu')
 
     # Create the input data pipeline
     logger.info('Loading the datasets...')
