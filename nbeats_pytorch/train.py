@@ -192,7 +192,7 @@ if __name__ == '__main__':
         hidden_layer_units=128,
     ).to('cuda')
     else:
-        params.device = torch.device('mps')
+        params.device = torch.device('cpu')
         # torch.manual_seed(230)
         logger.info('Not using cuda...')
         model  = NBeatsNet(
@@ -200,7 +200,7 @@ if __name__ == '__main__':
         forecast_length=params.forecast_length,
         backcast_length=params.backcast_length,
         hidden_layer_units=128,
-    )
+    ).to('cpu')
     
     #net = model
     #utils.set_logger(os.path.join(model_dir, 'train.log'))
@@ -219,7 +219,7 @@ if __name__ == '__main__':
 
     # fetch loss function
     loss_fn = F.mse_loss
-
+    
     # Train the model
     logger.info('Starting training for {} epoch(s)'.format(params.num_epochs))
     train_and_evaluate(model,

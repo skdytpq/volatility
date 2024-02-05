@@ -186,7 +186,7 @@ if __name__ == '__main__':
         hidden_layer_units=128,
     ).to('cuda')
     else:
-        params.device = torch.device('mps')
+        params.device = torch.device('cpu')
         # torch.manual_seed(230)
         logger.info('Not using cuda...')
         model  = NBeatsNet(
