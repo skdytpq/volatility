@@ -44,7 +44,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
       plot_batch = np.random.randint(len(test_loader)-1)
 
       summary_metric = {}
-      raw_metrics = utils.init_metrics(sample=sample)
+      raw_metrics = utils.init_metrics(sample=True) # MCdropout
 
       # Test_loader: 
       # test_batch ([batch_size, train_window, 1+cov_dim]): z_{0:T-1} + x_{1:T}, note that z_0 = 0;
@@ -62,7 +62,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
 
           test_batch = test_batch.to(torch.float32).to(params.device)  # not scaled
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled
-          labels_batch = test_batch[:,:,0][:,-1]
+          labels_batch = test_batch[:,:,0][:,-1].unsqueeze(-1)
           test_batch = test_batch[:,:,0][:,:-1] # 24 , batch , 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
