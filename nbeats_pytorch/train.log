@@ -2248,3 +2248,105 @@ NBeatsNet(
 [14:36:57] DeepAR.Train: Starting training for 20 epoch(s)
 [14:36:57] DeepAR.Train: begin training and evaluation
 [14:36:57] DeepAR.Train: Epoch 1/20
+[14:38:48] DeepAR.Train: Loading the datasets...
+[14:38:48] DeepAR.Data: train_len: 27688
+[14:38:48] DeepAR.Data: building datasets from ../traindata/...
+[14:38:48] DeepAR.Data: test_len: 12522
+[14:38:48] DeepAR.Data: building datasets from ../traindata/...
+[14:38:48] DeepAR.Data: weights: tensor([3.6318e-05, 3.6365e-05, 3.6434e-05,  ..., 3.5964e-05, 3.5969e-05,
+        3.6009e-05], dtype=torch.float64)
+[14:38:48] DeepAR.Data: num samples: 27688
+[14:38:48] DeepAR.Train: Loading complete.
+[14:38:48] DeepAR.Train: Model: 
+NBeatsNet(
+  (parameters): ParameterList(
+      (0): Parameter containing: [torch.FloatTensor of size 128x23]
+      (1): Parameter containing: [torch.FloatTensor of size 128]
+      (2): Parameter containing: [torch.FloatTensor of size 128x128]
+      (3): Parameter containing: [torch.FloatTensor of size 128]
+      (4): Parameter containing: [torch.FloatTensor of size 128x128]
+      (5): Parameter containing: [torch.FloatTensor of size 128]
+      (6): Parameter containing: [torch.FloatTensor of size 128x128]
+      (7): Parameter containing: [torch.FloatTensor of size 128]
+      (8): Parameter containing: [torch.FloatTensor of size 4x128]
+      (9): Parameter containing: [torch.FloatTensor of size 4x128]
+      (10): Parameter containing: [torch.FloatTensor of size 23x4]
+      (11): Parameter containing: [torch.FloatTensor of size 23]
+      (12): Parameter containing: [torch.FloatTensor of size 1x4]
+      (13): Parameter containing: [torch.FloatTensor of size 1]
+      (14): Parameter containing: [torch.FloatTensor of size 128x23]
+      (15): Parameter containing: [torch.FloatTensor of size 128]
+      (16): Parameter containing: [torch.FloatTensor of size 128x128]
+      (17): Parameter containing: [torch.FloatTensor of size 128]
+      (18): Parameter containing: [torch.FloatTensor of size 128x128]
+      (19): Parameter containing: [torch.FloatTensor of size 128]
+      (20): Parameter containing: [torch.FloatTensor of size 128x128]
+      (21): Parameter containing: [torch.FloatTensor of size 128]
+      (22): Parameter containing: [torch.FloatTensor of size 4x128]
+      (23): Parameter containing: [torch.FloatTensor of size 4x128]
+      (24): Parameter containing: [torch.FloatTensor of size 23x4]
+      (25): Parameter containing: [torch.FloatTensor of size 23]
+      (26): Parameter containing: [torch.FloatTensor of size 1x4]
+      (27): Parameter containing: [torch.FloatTensor of size 1]
+      (28): Parameter containing: [torch.FloatTensor of size 128x23]
+      (29): Parameter containing: [torch.FloatTensor of size 128]
+      (30): Parameter containing: [torch.FloatTensor of size 128x128]
+      (31): Parameter containing: [torch.FloatTensor of size 128]
+      (32): Parameter containing: [torch.FloatTensor of size 128x128]
+      (33): Parameter containing: [torch.FloatTensor of size 128]
+      (34): Parameter containing: [torch.FloatTensor of size 128x128]
+      (35): Parameter containing: [torch.FloatTensor of size 128]
+      (36): Parameter containing: [torch.FloatTensor of size 4x128]
+      (37): Parameter containing: [torch.FloatTensor of size 4x128]
+      (38): Parameter containing: [torch.FloatTensor of size 23x4]
+      (39): Parameter containing: [torch.FloatTensor of size 23]
+      (40): Parameter containing: [torch.FloatTensor of size 1x4]
+      (41): Parameter containing: [torch.FloatTensor of size 1]
+      (42): Parameter containing: [torch.FloatTensor of size 128x23]
+      (43): Parameter containing: [torch.FloatTensor of size 128]
+      (44): Parameter containing: [torch.FloatTensor of size 128x128]
+      (45): Parameter containing: [torch.FloatTensor of size 128]
+      (46): Parameter containing: [torch.FloatTensor of size 128x128]
+      (47): Parameter containing: [torch.FloatTensor of size 128]
+      (48): Parameter containing: [torch.FloatTensor of size 128x128]
+      (49): Parameter containing: [torch.FloatTensor of size 128]
+      (50): Parameter containing: [torch.FloatTensor of size 8x128]
+      (51): Parameter containing: [torch.FloatTensor of size 8x128]
+      (52): Parameter containing: [torch.FloatTensor of size 23x8]
+      (53): Parameter containing: [torch.FloatTensor of size 23]
+      (54): Parameter containing: [torch.FloatTensor of size 1x8]
+      (55): Parameter containing: [torch.FloatTensor of size 1]
+      (56): Parameter containing: [torch.FloatTensor of size 128x23]
+      (57): Parameter containing: [torch.FloatTensor of size 128]
+      (58): Parameter containing: [torch.FloatTensor of size 128x128]
+      (59): Parameter containing: [torch.FloatTensor of size 128]
+      (60): Parameter containing: [torch.FloatTensor of size 128x128]
+      (61): Parameter containing: [torch.FloatTensor of size 128]
+      (62): Parameter containing: [torch.FloatTensor of size 128x128]
+      (63): Parameter containing: [torch.FloatTensor of size 128]
+      (64): Parameter containing: [torch.FloatTensor of size 8x128]
+      (65): Parameter containing: [torch.FloatTensor of size 8x128]
+      (66): Parameter containing: [torch.FloatTensor of size 23x8]
+      (67): Parameter containing: [torch.FloatTensor of size 23]
+      (68): Parameter containing: [torch.FloatTensor of size 1x8]
+      (69): Parameter containing: [torch.FloatTensor of size 1]
+      (70): Parameter containing: [torch.FloatTensor of size 128x23]
+      (71): Parameter containing: [torch.FloatTensor of size 128]
+      (72): Parameter containing: [torch.FloatTensor of size 128x128]
+      (73): Parameter containing: [torch.FloatTensor of size 128]
+      (74): Parameter containing: [torch.FloatTensor of size 128x128]
+      (75): Parameter containing: [torch.FloatTensor of size 128]
+      (76): Parameter containing: [torch.FloatTensor of size 128x128]
+      (77): Parameter containing: [torch.FloatTensor of size 128]
+      (78): Parameter containing: [torch.FloatTensor of size 8x128]
+      (79): Parameter containing: [torch.FloatTensor of size 8x128]
+      (80): Parameter containing: [torch.FloatTensor of size 23x8]
+      (81): Parameter containing: [torch.FloatTensor of size 23]
+      (82): Parameter containing: [torch.FloatTensor of size 1x8]
+      (83): Parameter containing: [torch.FloatTensor of size 1]
+  )
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+[14:38:48] DeepAR.Train: Starting training for 20 epoch(s)
+[14:38:48] DeepAR.Train: begin training and evaluation
+[14:38:48] DeepAR.Train: Epoch 1/20
