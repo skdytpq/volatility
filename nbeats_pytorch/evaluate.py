@@ -63,6 +63,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           test_batch = test_batch[:,:-params.forecast_length,:].squeeze(-1)# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
+          pdb.set_trace()
           mc_samples = 200
           pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length))
           sample = True
@@ -75,6 +76,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             samples = forecast
             sample_mu = torch.mean(forecast,axis=0 )
             sample_sigma = torch.std(forecast,axis=0)
+            pdb.set_trace()
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
