@@ -234,8 +234,8 @@ def accuracy_ROU(rou: float, samples: torch.Tensor, labels: torch.Tensor, relati
     numerator = 0
     denominator = 0
     pred_samples = samples.shape[0]
-    samples = samples.cpu().detach().numpy()
-    labels = labels.cpu().detach().numpy()
+    samples = samples.detach().numpy()
+    labels = labels.detach().numpy()
     for t in range(labels.shape[1]):
         zero_index = (labels[:, t] != 0)
         if zero_index.numel() > 0:
@@ -251,8 +251,8 @@ def accuracy_ROU(rou: float, samples: torch.Tensor, labels: torch.Tensor, relati
         return [numerator, denominator]
 
 def accuracy_ND_(mu: torch.Tensor, labels: torch.Tensor, relative = False):
-    mu = mu.cpu().detach().numpy()
-    labels = labels.cpu().detach().numpy()
+    mu = mu.detach().numpy()
+    labels = labels.detach().numpy()
 
     mu[labels == 0] = 0.
 
