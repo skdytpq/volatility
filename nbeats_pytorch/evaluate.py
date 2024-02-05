@@ -67,20 +67,21 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           mc_samples = 200
           pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length))
           sample = True
+          v_ = v_batch[:,0].unsqueeze(1)
+          v_1 = v_batch[:,1].unsqueeze(1)
+          v_ = v_.expand(v_batch.shape[0],params.forecast_length)
+          v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
           if sample:
             for iteration in range(mc_samples):
                 _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
+                forecast = v_ * forecast + v_1
                 pred_i[iteration] = forecast
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
             samples = forecast # iter batch len -> 200 256 6
-            v_ = v_batch[:,0].unsqueeze(1)
-            v_1 = v_batch[:,1].unsqueeze(1)
-            v_ = v_.expand(v_batch.shape[0],params.forecast_length)
-            v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
             sample_mu = torch.mean(forecast,axis=0 )
-            sample_mu = v_ * sample_mu + v_1
-            sample_sigma = torch.std(forecast,axis=0) * v_1
+        #    sample_mu = v_ * sample_mu + v_1
+            sample_sigma = torch.std(forecast,axis=0) #* v_1
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
@@ -135,7 +136,6 @@ def plot_eight_windows(plot_dir,
     nrows = 21
     ncols = 1
     ax = f.subplots(nrows, ncols)
-    pdb.set_trace()
     for k in range(nrows):
         if k == 10:
             ax[k].plot(x, x, color='g')
