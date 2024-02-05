@@ -64,7 +64,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 200
-          pred_i = torch.zeros((mc_samples,test_batch.shape[0],1))
+          pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length))
           sample = True
           if sample:
             for iteration in range(mc_samples):
