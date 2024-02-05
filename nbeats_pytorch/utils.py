@@ -177,11 +177,11 @@ def init_metrics(sample=True):
 
 def get_metrics(sample_mu, labels, predict_start, samples=None, relative=False):
     metric = dict()
-    metric['ND'] = accuracy_ND_(sample_mu, labels[:, predict_start:], relative=relative)
-    metric['RMSE'] = accuracy_RMSE_(sample_mu, labels[:, predict_start:], relative=relative)
+    metric['ND'] = accuracy_ND_(sample_mu, labels ,relative=relative)
+    metric['RMSE'] = accuracy_RMSE_(sample_mu, labels, relative=relative)
     if samples is not None:
-        metric['rou90'] = accuracy_ROU_(0.9, samples, labels[:, predict_start:], relative=relative)
-        metric['rou50'] = accuracy_ROU_(0.5, samples, labels[:, predict_start:], relative=relative)
+        metric['rou90'] = accuracy_ROU_(0.9, samples, labels, relative=relative)
+        metric['rou50'] = accuracy_ROU_(0.5, samples, labels, relative=relative)
     return metric
 
 def update_metrics(raw_metrics, input_mu, sample_mu, labels, predict_start, samples=None, relative=False):
