@@ -64,8 +64,8 @@ def train(model: nn.Module,
         batch_size = train_batch.shape[0]
         train_batch = train_batch.to(torch.float32).to(params.device)  # not scaled
         labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled 24 , batch , 1
-        labels_batch = train_batch[:,:,0][:,-1]
-        train_batch = train_batch[:,:,0][:,:-1]# 24 , batch , 1
+        labels_batch = labels_batch[:,-params.forecast_length:]
+        train_batch = train_batch[:,:-params.forecast_length,:]
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
         loss = torch.zeros(1, device=params.device)

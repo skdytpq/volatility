@@ -58,11 +58,10 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           labels = labels.to(torch.float32).to(params.device)
           test_batch = test_batch[:,:,0].unsqueeze(-1)
           batch_size = test_batch.shape[1]
-
           test_batch = test_batch.to(torch.float32).to(params.device)  # not scaled
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled
-          labels_batch = labels[:,-1].unsqueeze(1) # Batch X 1 # backcast 지정
-          test_batch = test_batch[:,:,0][:,1:] # 23 , batch , 1 backcast = 1
+          labels_batch = labels[:,-params.forecast_length:] # Batch X 1 # backcast 지정
+          test_batch = test_batch[:,:-params.forecast_length,:]# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 200
