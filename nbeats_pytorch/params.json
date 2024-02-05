@@ -3,7 +3,7 @@
     "batch_size": 64,
     "forecast_length": 6,
     "backcast_length" : 42, 
-    "num_epochs": 20,
+    "num_epochs": 150,
     "train_window": 48,
     "test_window": 48,
     "predict_start": 42,
