@@ -67,7 +67,6 @@ def train(model: nn.Module,
         labels_batch = train_batch[:,:,0][:,-1]
         train_batch = train_batch[:,:,0][:,:-1]# 24 , batch , 1
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
-        pdb.set_trace()
         idx = idx.unsqueeze(0).to(params.device)
         loss = torch.zeros(1, device=params.device)
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))

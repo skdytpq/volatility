@@ -143,7 +143,6 @@ class NBeatsNet(nn.Module):
             for batch_id in shuffled_indices:
                 batch_x, batch_y = x_train_list[batch_id], y_train_list[batch_id]
                 self._opt.zero_grad()
-                pdb.set_trace()
                 _, forecast = self(torch.tensor(batch_x, dtype=torch.float).to(self.device))
                 loss = self._loss(forecast, squeeze_last_dim(torch.tensor(batch_y, dtype=torch.float).to(self.device)))
                 train_loss.append(loss.item())
