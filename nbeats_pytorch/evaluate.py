@@ -45,6 +45,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
 
       summary_metric = {}
       raw_metrics = utils.init_metrics(sample=sample)
+      pdb.set_trace()
 
       # Test_loader: 
       # test_batch ([batch_size, train_window, 1+cov_dim]): z_{0:T-1} + x_{1:T}, note that z_0 = 0;
