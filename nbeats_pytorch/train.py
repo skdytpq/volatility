@@ -68,6 +68,7 @@ def train(model: nn.Module,
         train_batch = train_batch[:,:-params.forecast_length,:].squeeze(-1)
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
+        pdb.set_trace()
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
         loss = F.mse_loss(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
         loss.backward()  
