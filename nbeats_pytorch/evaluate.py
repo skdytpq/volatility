@@ -78,16 +78,16 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             samples = forecast
             sample_mu = torch.mean(forecast,axis=1 )
             sample_sigma = torch.std(forecast,axis=1)
-            raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels, params.forecast_length, samples, relative = params.relative_metrics)
+            raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
-              raw_metrics = utils.update_metrics(raw_metrics, forecast, sample_mu, labels, params.test_predict_start, relative = params.relative_metrics)
+              raw_metrics = utils.update_metrics(raw_metrics, forecast, sample_mu, labels_batch , params.test_predict_start, relative = params.relative_metrics)
 
           if i == plot_batch:
               if sample:
-                  sample_metrics = utils.get_metrics(sample_mu, labels, params.test_predict_start, samples, relative = params.relative_metrics)
+                  sample_metrics = utils.get_metrics(sample_mu, labels_batch , params.test_predict_start, samples, relative = params.relative_metrics)
               else:
-                  sample_metrics = utils.get_metrics(sample_mu, labels, params.test_predict_start, relative = params.relative_metrics)                
+                  sample_metrics = utils.get_metrics(sample_mu, labels_batch , params.test_predict_start, relative = params.relative_metrics)                
               # select 10 from samples with highest error and 10 from the rest
               top_10_nd_sample = (-sample_metrics['ND']).argsort()[:batch_size // 10]  # hard coded to be 10
               chosen = set(top_10_nd_sample.tolist())
