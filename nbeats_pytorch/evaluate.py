@@ -67,13 +67,14 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 100
-          pred_i = []
+          pred_i = torch.zeros((mc_samples,test_batch.shape[0],1))
           sample = True
           if sample:
             for iteration in range(mc_samples):
                 _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
-                pred_i.append(forecast)
+                pred_i[iteration] = forecast
             pdb.set_trace()
+            pred_i.detach().numpy()
             forecast = torch.Tensor(pred_i)
             samples = forecast
             sample_mu = torch.mean(forecast)
