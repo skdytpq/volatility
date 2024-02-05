@@ -73,11 +73,11 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             for iteration in range(mc_samples):
                 _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
                 pred_i[iteration] = forecast
-            pdb.set_trace()
-            forecast = torch.Tensor(pred_i)
+            forecast = pred_i
+            forecast = forecast.permute(1,0,2) #iter batch len -> batch iter len
             samples = forecast
-            sample_mu = torch.mean(forecast)
-            sample_sigma = torch.var(forecast)**(1/2)
+            sample_mu = torch.mean(forecast,axis=1 )
+            sample_sigma = torch.std(forecast,axis=1)
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels, params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
