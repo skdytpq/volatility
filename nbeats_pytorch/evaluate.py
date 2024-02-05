@@ -55,6 +55,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           test_batch = test_batch.to(torch.float32).to(params.device)
           id_batch = id_batch.to(params.device)
           v_batch = v.to(torch.float32).to(params.device)
+
           labels = labels.to(torch.float32).to(params.device)
           batch_size = test_batch.shape[1]
           test_batch = test_batch.to(torch.float32).to(params.device)  # not scaled
@@ -75,8 +76,8 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             samples = forecast # iter batch len -> 200 256 6
             v_ = v_batch[:,0].unsqueeze(1)
             v_1 = v_batch[:,1].unsqueeze(1)
-            v_ = v_.expand(256,6)
-            v_1 = v_1.expand(256,6)
+            v_ = v_.expand(v_batch.shape[0],params.forecast_length)
+            v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
             sample_mu = torch.mean(forecast,axis=0 )
             sample_mu = v_ * sample_mu + v_1
             sample_sigma = torch.std(forecast,axis=0) * v_1
@@ -134,7 +135,7 @@ def plot_eight_windows(plot_dir,
     nrows = 21
     ncols = 1
     ax = f.subplots(nrows, ncols)
-
+    pdb.set_trace()
     for k in range(nrows):
         if k == 10:
             ax[k].plot(x, x, color='g')
