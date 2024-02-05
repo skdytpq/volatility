@@ -58,15 +58,14 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           labels = labels.to(torch.float32).to(params.device)
           test_batch = test_batch[:,:,0].unsqueeze(-1)
           batch_size = test_batch.shape[1]
-          pdb.set_trace()
 
           test_batch = test_batch.to(torch.float32).to(params.device)  # not scaled
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled
-          labels_batch = test_batch[:,:,0][:,-1].unsqueeze(-1) # Batch X 1
-          test_batch = test_batch[:,:,0][:,:-1] # 23 , batch , 1
+          labels_batch = labels[:,-1].unsqueeze(1) # Batch X 1 # backcast 지정
+          test_batch = test_batch[:,:,0][:,1:] # 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
-          mc_samples = 100
+          mc_samples = 200
           pred_i = torch.zeros((mc_samples,test_batch.shape[0],1))
           sample = True
           if sample:
@@ -140,10 +139,9 @@ def plot_eight_windows(plot_dir,
             ax[k].set_title('This separates top 10 and bottom 90', fontsize=10)
             continue
         m = k if k < 10 else k - 1
-        pdb.set_trace()
         ax[k].plot(x, predict_values[m], color='b')
-        ax[k].fill_between(x[predict_start :], predict_values[m, predict_start :] - 2 * predict_sigma[m, predict_start-1:],
-                         predict_values[m, predict_start-1:] + 2 * predict_sigma[m, predict_start-1:], color='blue',
+        ax[k].fill_between(x[predict_start :], predict_values[m, predict_start :] - 2 * predict_sigma[m, predict_start:],
+                         predict_values[m, predict_start:] + 2 * predict_sigma[m, predict_start:], color='blue',
                          alpha=0.2)
         ax[k].plot(x, labels[m, :], color='r')
         ax[k].axvline(predict_start, color='g', linestyle='dashed')
