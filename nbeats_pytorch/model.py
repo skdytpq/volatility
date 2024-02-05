@@ -190,6 +190,7 @@ class NBeatsNet(nn.Module):
         self._intermediary_outputs = []
         backcast = squeeze_last_dim(backcast)
         forecast = torch.zeros(size=(backcast.size()[0], self.forecast_length,))  # maybe batch size here.
+        pdb.set_trace()
       #  backcast = torch.matmul(backcast.T,backcast).unsqueeze(0) # Considering Batch?
         for stack_id in range(len(self.stacks)):
             for block_id in range(len(self.stacks[stack_id])):
