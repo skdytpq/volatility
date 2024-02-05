@@ -1,7 +1,7 @@
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
-import sys
-sys.path.append("./")
+#import sys
+#sys.path.append("./")
 import argparse
 import logging
 import os
@@ -10,10 +10,10 @@ import numpy as np
 import torch
 from torch import nn
 import torch.optim as optim
+import utils
 from torch.utils.data.sampler import RandomSampler
 from tqdm import tqdm
 import pdb
-import utils
 #import model.net as net
 from evaluate import evaluate
 from dataloader import *
@@ -69,6 +69,7 @@ def train(model: nn.Module,
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
         loss = torch.zeros(1, device=params.device)
+        pdb.set_trace()
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
         loss = F.mse_loss(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
         loss.backward()  
@@ -203,7 +204,7 @@ if __name__ == '__main__':
         backcast_length=params.backcast_length,
         hidden_layer_units=128,
     ).to('cpu')
-    
+    print(os.getcwd())
     #net = model
     #utils.set_logger(os.path.join(model_dir, 'train.log'))
     utils.set_logger(os.path.join('train.log'))
