@@ -61,7 +61,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
 
 
           test_batch = test_batch.to(torch.float32).to(params.device)  # not scaled
-          labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled
+         # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled
           labels_batch = test_batch[:,:,0][:,-1]
           test_batch = test_batch[:,:,0][:,:-1] # 24 , batch , 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
