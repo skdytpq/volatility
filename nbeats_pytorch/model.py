@@ -256,7 +256,6 @@ class Block(nn.Module):
             self.theta_f_fc = nn.Linear(units, thetas_dim, bias=False)
         self.dropout = nn.Dropout(drop_rate)
     def forward(self, x):
-        pdb.set_trace()
         x = squeeze_last_dim(x)
         x = F.relu(self.fc1(x.to(self.device)))
         x = self.dropout(x)
