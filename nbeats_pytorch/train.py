@@ -64,12 +64,10 @@ def train(model: nn.Module,
         batch_size = train_batch.shape[0]
         train_batch = train_batch.to(torch.float32).to(params.device)  # not scaled
         labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled 24 , batch , 1
-        pdb.set_trace()
         labels_batch = labels_batch[:,-params.forecast_length:]
         train_batch = train_batch[:,:-params.forecast_length,:].squeeze(-1)
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
-        pdb.set_trace()
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
         loss = F.mse_loss(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
         loss.backward()  

@@ -187,7 +187,6 @@ class NBeatsNet(nn.Module):
         return g_pred, i_pred, outputs
 
     def forward(self, backcast):
-        pdb.set_trace()
         self._intermediary_outputs = []
         backcast = squeeze_last_dim(backcast)
         forecast = torch.zeros(size=(backcast.size()[0], self.forecast_length,))  # maybe batch size here.
