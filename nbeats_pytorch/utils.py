@@ -190,7 +190,7 @@ def update_metrics(raw_metrics, input_mu, sample_mu, labels, predict_start, samp
     input_time_steps = input_mu.numel()
     raw_metrics['test_loss'] = raw_metrics['test_loss'] + [
         F.mse_loss(sample_mu, torch.tensor(labels, dtype=torch.float)).detach().cpu().numpy() * input_time_steps, input_time_steps]
-
+    pdb.set_trace()
     if samples is not None:
         raw_metrics['rou90'] = raw_metrics['rou90'] + accuracy_ROU(0.9, samples, labels, relative=relative)
         raw_metrics['rou50'] = raw_metrics['rou50'] + accuracy_ROU(0.5, samples, labels, relative=relative)
