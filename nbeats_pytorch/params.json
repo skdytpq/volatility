@@ -9,7 +9,7 @@
     "predict_start": 47,
     "test_predict_start": 47,
     "predict_steps": 1,
-    "num_class": 3,
+    "num_class": 1,
     "cov_dim": 0,
     "lstm_hidden_dim": 40,
     "embedding_dim": 20,
