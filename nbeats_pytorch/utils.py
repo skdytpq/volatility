@@ -212,7 +212,6 @@ def accuracy_ND(mu: torch.Tensor, labels: torch.Tensor, relative = False):
         diff = torch.mean(torch.abs(mu[zero_index] - labels[zero_index])).item()
         return [diff, 1]
     else:
-        pdb.set_trace()
         diff = torch.sum(torch.abs(mu[zero_index] - labels[zero_index])).item()
         summation = torch.sum(torch.abs(labels[zero_index])).item()
         return [diff, summation]
