@@ -34,7 +34,8 @@ parser.add_argument('--save-best', action='store_true', help='Whether to save be
 parser.add_argument('--restore-file', default=None,
                     help='Optional, name of the file in --model_dir containing weights to reload before \
                     training')  # 'best' or 'epoch_#'
-
+parser.add_argument('--coin_name', default='btc',
+                    )  # 'best' or 'epoch_#'
 
 def train(model: nn.Module,
           optimizer: optim,
@@ -117,19 +118,18 @@ def train_and_evaluate(model: nn.Module,
         test_metrics = evaluate(model, loss_fn, test_loader, params, epoch, sample=True)#args.sampling)# always True
         ND_summary[epoch] = test_metrics['ND']
         is_best = ND_summary[epoch] <= best_test_ND
-
         # Save weights
         utils.save_checkpoint({'epoch': epoch + 1,
                                'state_dict': model.state_dict(),
                                'optim_dict': optimizer.state_dict()},
                               epoch=epoch,
                               is_best=is_best,
-                              checkpoint=params.model_dir)
+                              checkpoint=os.path.join(params.model_name,params.coin_name))
 
         if is_best:
             logger.info('- Found new best ND')
             best_test_ND = ND_summary[epoch]
-            best_json_path = os.path.join(params.model_dir, 'metrics_test_best_weights.json')
+            best_json_path = os.path.join(os.path.join(params.model_name,params.coin_name), 'metrics_test_best_weights.json')
             utils.save_dict_to_json(test_metrics, best_json_path)
 
         logger.info('Current Best ND is: %.5f' % best_test_ND)
@@ -137,7 +137,7 @@ def train_and_evaluate(model: nn.Module,
         utils.plot_all_epoch(ND_summary[:epoch + 1], args.dataset + '_ND', params.plot_dir)
         utils.plot_all_epoch(loss_summary[:(epoch + 1) * train_len], args.dataset + '_loss', params.plot_dir)
 
-        last_json_path = os.path.join(params.model_dir, 'metrics_test_last_weights.json')
+        last_json_path = os.path.join(os.path.join(params.model_name,params.coin_name), 'metrics_test_last_weights.json')
         utils.save_dict_to_json(test_metrics, last_json_path)
 
     if args.save_best:
@@ -172,14 +172,14 @@ if __name__ == '__main__':
     params.sampling =  args.sampling
     params.model_dir = model_dir
    # params.plot_dir = os.path.join(model_dir, 'figures')
-    params.plot_dir = os.path.join('figures')
+    params.plot_dir = os.path.join('figures',params.coin_name)
 
     # create missing directories
     try:
-        os.mkdir(params.plot_dir)
+        os.mkdirs(params.plot_dir,exist_ok=True)
     except FileExistsError:
         pass
-
+    os.makedirs(os.path.join(params.model_name,params.coin_name), exist_ok=True)
     # use GPU if available
     cuda_exist =torch.cuda.is_available()
     # Set random seeds for reproducible experiments if necessary
@@ -203,15 +203,14 @@ if __name__ == '__main__':
         backcast_length=params.backcast_length,
         hidden_layer_units=128,
     ).to('cpu')
-    print(os.getcwd())
     #net = model
     #utils.set_logger(os.path.join(model_dir, 'train.log'))
     utils.set_logger(os.path.join('train.log'))
     logger.info('Loading the datasets...')
 
-    train_set = TrainDataset(data_dir, 'coin', params.num_class)
-    test_set = TestDataset(data_dir, 'coin', params.num_class)
-    sampler = WeightedSampler(data_dir, 'coin') # Use weighted sampler instead of random sampler
+    train_set = TrainDataset(data_dir, params.coin_name, params.num_class)
+    test_set = TestDataset(data_dir, params.coin_name, params.num_class)
+    sampler = WeightedSampler(data_dir, params.coin_name) # Use weighted sampler instead of random sampler
     train_loader = DataLoader(train_set, batch_size=params.batch_size, sampler=sampler, num_workers=4)
     test_loader = DataLoader(test_set, batch_size=params.predict_batch, sampler=RandomSampler(test_set),num_workers=4)
     logger.info('Loading complete.')
