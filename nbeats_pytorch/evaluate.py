@@ -82,6 +82,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             sample_mu = torch.mean(forecast,axis=0 )
             sample_mu = v_ * sample_mu + v_1
             sample_sigma = torch.std(forecast,axis=0) #* v_1
+            pdb.set_trace()
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
