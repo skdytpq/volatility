@@ -82,7 +82,6 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             sample_mu = torch.mean(forecast,axis=0 )
             sample_mu = v_ * sample_mu + v_1
             sample_sigma = torch.std(forecast,axis=0) #* v_1
-            pdb.set_trace()
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
               sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
@@ -110,6 +109,8 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
               # Labels 는 forecast를 해야하는 Label 데이터
               label_plot = labels[combined_sample].data.cpu().numpy() # 실제 라벨 값
               predict_mu = sample_mu[combined_sample].data.cpu().numpy()
+              print(predict_mu[0],predict_mu[1])
+              print('Prediction------------------')
               predict_sigma = sample_sigma[combined_sample].data.cpu().numpy()
               plot_mu = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_mu), axis=1)
               plot_sigma = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_sigma), axis=1)
