@@ -170,6 +170,7 @@ if __name__ == '__main__':
     params.relative_metrics = args.relative_metrics
     params.sampling =  args.sampling
     params.model_dir = model_dir
+    params.coin_name = args.coin_name
    # params.plot_dir = os.path.join(model_dir, 'figures')
     params.plot_dir = os.path.join('figures',params.coin_name)
 
