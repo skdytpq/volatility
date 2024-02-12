@@ -2,7 +2,7 @@
     "learning_rate": 1e-3,
     "batch_size": 64,
     "forecast_length": 1,
-    "backcast_length" : 42, 
+    "backcast_length" : 47, 
     "num_epochs": 150,
     "train_window": 48,
     "test_window": 48,
