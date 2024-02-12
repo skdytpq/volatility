@@ -59,6 +59,7 @@ def train(model: nn.Module,
     # train_batch ([batch_size, train_window, 1+cov_dim]): z_{0:T-1} + x_{1:T}, note that z_0 = 0;
     # idx ([batch_size]): one integer denoting the time series id;
     # labels_batch ([batch_size, train_window]): z_{1:T}.
+    loss_nbeat = 0
     for i, (train_batch, idx, labels_batch) in enumerate(tqdm(train_loader)):
         optimizer.zero_grad()
         batch_size = train_batch.shape[0]
@@ -70,8 +71,8 @@ def train(model: nn.Module,
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
-        loss = F.mse_loss(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
-        loss.backward()  
+        loss_nbeat += loss_fn(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
+        loss_nbeat.backward()  
         optimizer.step()
         loss = loss.item() / params.train_window  # loss per timestep
         loss_epoch[i] = loss
@@ -218,8 +219,7 @@ if __name__ == '__main__':
     optimizer = optim.Adam(model.parameters(), lr=params.learning_rate,weight_decay= 0.001)
 
     # fetch loss function
-    loss_fn = F.mse_loss
-    
+    loss_fn =  nn.MSELoss()
     # Train the model
     logger.info('Starting training for {} epoch(s)'.format(params.num_epochs))
     train_and_evaluate(model,
