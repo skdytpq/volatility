@@ -59,7 +59,6 @@ def train(model: nn.Module,
     # train_batch ([batch_size, train_window, 1+cov_dim]): z_{0:T-1} + x_{1:T}, note that z_0 = 0;
     # idx ([batch_size]): one integer denoting the time series id;
     # labels_batch ([batch_size, train_window]): z_{1:T}.
-    loss_nbeat = 0
     for i, (train_batch, idx, labels_batch) in enumerate(tqdm(train_loader)):
         optimizer.zero_grad()
         batch_size = train_batch.shape[0]
@@ -71,7 +70,7 @@ def train(model: nn.Module,
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
         _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
-        loss_nbeat += loss_fn(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
+        loss_nbeat = loss_fn(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
         loss_nbeat.backward()  
         optimizer.step()
         loss = loss_nbeat/ params.train_window  # loss per timestep
