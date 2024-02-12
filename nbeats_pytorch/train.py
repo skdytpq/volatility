@@ -176,7 +176,7 @@ if __name__ == '__main__':
 
     # create missing directories
     try:
-        os.mkdirs(params.plot_dir,exist_ok=True)
+        os.makedirs(params.plot_dir,exist_ok=True)
     except FileExistsError:
         pass
     os.makedirs(os.path.join(params.model_name,params.coin_name), exist_ok=True)
