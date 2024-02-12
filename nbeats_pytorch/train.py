@@ -34,8 +34,7 @@ parser.add_argument('--save-best', action='store_true', help='Whether to save be
 parser.add_argument('--restore-file', default=None,
                     help='Optional, name of the file in --model_dir containing weights to reload before \
                     training')  # 'best' or 'epoch_#'
-parser.add_argument('--coin_name', default='btc',
-                    )  # 'best' or 'epoch_#'
+parser.add_argument('--coin_name', default='btc')  # 'best' or 'epoch_#'
 
 def train(model: nn.Module,
           optimizer: optim,
