@@ -173,7 +173,7 @@ if __name__ == '__main__':
     params.coin_name = args.coin_name
    # params.plot_dir = os.path.join(model_dir, 'figures')
     params.plot_dir = os.path.join('figures',params.coin_name)
-
+    params.model_name=args.model_name
     # create missing directories
     try:
         os.makedirs(params.plot_dir,exist_ok=True)
