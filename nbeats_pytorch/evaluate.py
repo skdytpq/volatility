@@ -84,7 +84,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
             sample_sigma = torch.std(forecast,axis=0) #* v_1
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
-              sample_sigma,sample_mu = _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
+              sample_sigma,sample_mu = _, forecast = model(test_batch)
               raw_metrics = utils.update_metrics(raw_metrics, forecast, sample_mu, labels_batch , params.test_predict_start, relative = params.relative_metrics)
 
           if i == plot_batch:

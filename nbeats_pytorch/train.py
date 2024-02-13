@@ -69,8 +69,8 @@ def train(model: nn.Module,
         
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
-        _, forecast = model(torch.tensor(train_batch, dtype=torch.float).to(params.device))
-        loss_nbeat = loss_fn(forecast, torch.tensor(labels_batch, dtype=torch.float).to(params.device))
+        _, forecast = model(train_batch)
+        loss_nbeat = loss_fn(forecast,labels_batch)
         loss_nbeat.backward()  
         optimizer.step()
         loss = loss_nbeat/ params.train_window  # loss per timestep
