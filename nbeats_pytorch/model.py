@@ -309,7 +309,7 @@ class GenericBlock(Block):
 
         self.backcast_fc = nn.Linear(thetas_dim, backcast_length)
         self.forecast_fc = nn.Linear(thetas_dim, forecast_length)
-
+        self.sp= nn.Softplus()
     def forward(self, x):
         # no constraint for generic arch.
         x = super(GenericBlock, self).forward(x)
@@ -321,7 +321,7 @@ class GenericBlock(Block):
 
         backcast = self.backcast_fc(theta_b)  # generic. 3.3.
         forecast = self.forecast_fc(theta_f)  # generic. 3.3.
-
+        forecast = self.sp(forecast)
         return backcast, forecast
 # if relative is set to True, metrics are not normalized by the scale of labels
 def accuracy_ND(mu: torch.Tensor, labels: torch.Tensor, relative = False):
