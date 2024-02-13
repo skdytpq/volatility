@@ -73,7 +73,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
           if sample:
             for iteration in range(mc_samples):
-                _, forecast = model(torch.tensor(test_batch, dtype=torch.float).to(params.device))
+                _, forecast = model(test_batch)
                 forecast = v_ * forecast + v_1
                 pred_i[iteration] = forecast
             forecast = pred_i
