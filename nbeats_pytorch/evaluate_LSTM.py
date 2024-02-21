@@ -53,9 +53,10 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
       # labels ([batch_size, train_window]): z_{1:T}.
       for i, (test_batch, id_batch, v, labels) in enumerate(tqdm(test_loader)):
           test_batch = test_batch.to(torch.float32).to(params.device)
-          id_batch = id_batch.to(params.device)
+          idx = id_batch.to(params.device)
           v_batch = v.to(torch.float32).to(params.device)
-
+          hidden = model.init_hidden(batch_size)
+          cell = model.init_cell(batch_size)
           labels_batch = labels.permute(1, 0, 2).to(torch.float32).to(params.device)
           batch_size = test_batch.shape[1]
           test_batch = test_batch.permute(1, 0, 2).to(torch.float32).to(params.device)  # not scaled
@@ -72,7 +73,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           pdb.set_trace()
           if sample:
             for iteration in range(mc_samples):
-                forecast,_,_ = model(test_batch)
+                forecast,_,_ = model(test_batch, idx, hidden, cell)
                 forecast = v_ * forecast + v_1
                 pred_i[iteration] = forecast
             pdb.set_trace()

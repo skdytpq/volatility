@@ -69,7 +69,7 @@ def train(model: nn.Module,
        # loss = torch.zeros(1, device=params.device)
         hidden = model.init_hidden(batch_size)
         cell = model.init_cell(batch_size)
-        output, hidden, cell = model(train_batch.unsqueeze_(0).clone(), idx, hidden, cell)
+        output, hidden, cell = model(train_batch, idx, hidden, cell)
         loss_nbeat = loss_fn(output,labels_batch)
         loss_nbeat.backward()
         optimizer.step()
