@@ -62,18 +62,20 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
-          mc_samples = 30
+          mc_samples = 100
           pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length))
           sample = True
           v_ = v_batch[:,0].unsqueeze(1)
           v_1 = v_batch[:,1].unsqueeze(1)
           v_ = v_.expand(v_batch.shape[0],params.forecast_length)
           v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
+          pdb.set_trace()
           if sample:
             for iteration in range(mc_samples):
                 forecast,_,_ = model(test_batch)
                 forecast = v_ * forecast + v_1
                 pred_i[iteration] = forecast
+            pdb.set_trace()
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
             samples = forecast # iter batch len -> 200 256 6
