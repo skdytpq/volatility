@@ -64,22 +64,24 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
-          mc_samples = 30
+          mc_samples = 200
           pred_i = torch.zeros((mc_samples,batch_size,params.forecast_length)).to(params.device)
           sample = True
           if sample:
+
+            for t in range(47):
+                zero_index = (test_batch[t,:,0] == 0)
+                #   if t > 0 and torch.sum(zero_index) > 0:
+                #       test_batch[t,zero_index,0] = output[zero_index]
+                output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
             for iteration in range(mc_samples):
-                for t in range(47):
-                    zero_index = (test_batch[t,:,0] == 0)
-                 #   if t > 0 and torch.sum(zero_index) > 0:
-                 #       test_batch[t,zero_index,0] = output[zero_index]
-                    output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
                 forecast,_,_ = model(test_batch[t+1].unsqueeze(0), idx, hidden, cell,r=1)
                 forecast = forecast*v_batch[:,0].unsqueeze(1)
+                pred_i[iteration] = forecast
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
             samples = forecast # iter batch len -> 200 256 6
-            sample_mu = torch.mean(forecast,axis=0 )
+            sample_mu = torch.mean(forecast,axis=0)
 
             sample_sigma = torch.std(forecast,axis=0) #* v_1
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)

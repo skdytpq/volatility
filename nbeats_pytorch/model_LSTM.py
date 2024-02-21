@@ -28,7 +28,7 @@ class Net(nn.Module):
                             num_layers=lstm_layers,
                             bias=True,
                             batch_first=False,
-                            dropout=lstm_dropout)
+                            dropout=0.5)
         '''self.lstm = nn.LSTM(input_size=1 + params.cov_dim,
                             hidden_size=params.lstm_hidden_dim,
                             num_layers=params.lstm_layers,
