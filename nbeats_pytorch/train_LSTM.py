@@ -5,7 +5,7 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import argparse
 import logging
 import os
-from model import NBeatsNet
+from model_LSTM import Net
 import numpy as np
 import torch
 from torch import nn
@@ -15,7 +15,7 @@ from torch.utils.data.sampler import RandomSampler
 from tqdm import tqdm
 import pdb
 #import model.net as net
-from evaluate import evaluate
+from evaluate_LSTM import evaluate
 from dataloader import *
 from torch.nn import functional as F
 import matplotlib
@@ -34,7 +34,7 @@ parser.add_argument('--save-best', action='store_true', help='Whether to save be
 parser.add_argument('--restore-file', default=None,
                     help='Optional, name of the file in --model_dir containing weights to reload before \
                     training')  # 'best' or 'epoch_#'
-parser.add_argument('--coin_name', default='btc')  # 'best' or 'epoch_#'
+parser.add_argument('--coin_name', default='coin_full')  # 'best' or 'epoch_#'
 
 def train(model: nn.Module,
           optimizer: optim,
@@ -62,15 +62,15 @@ def train(model: nn.Module,
     for i, (train_batch, idx, labels_batch) in enumerate(tqdm(train_loader)):
         optimizer.zero_grad()
         batch_size = train_batch.shape[0]
-        train_batch = train_batch.to(torch.float32).to(params.device)  # not scaled
-        labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled 24 , batch , 1
-        labels_batch = labels_batch[:,-params.forecast_length:]
-        train_batch = train_batch[:,:-params.forecast_length,:].squeeze(-1)
-        
-        #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
+        train_batch = train_batch.permute(1, 0, 2).to(torch.float32).to(params.device)  # not scaled
+        labels_batch = labels_batch.permute(1, 0).to(torch.float32).to(params.device)  # not scaled
         idx = idx.unsqueeze(0).to(params.device)
-        _, forecast = model(train_batch)
-        loss_nbeat = loss_fn(forecast,labels_batch)
+
+       # loss = torch.zeros(1, device=params.device)
+        hidden = model.init_hidden(batch_size)
+        cell = model.init_cell(batch_size)
+        output, hidden, cell = model(train_batch.unsqueeze_(0).clone(), idx, hidden, cell)
+        loss_nbeat = loss_fn(output,labels_batch)
         loss_nbeat.backward()
         optimizer.step()
         loss = loss_nbeat/ params.train_window  # loss per timestep
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     params.model_dir = model_dir
     params.coin_name = args.coin_name
    # params.plot_dir = os.path.join(model_dir, 'figures')
-    params.plot_dir = os.path.join('figures',params.coin_name)
+    params.plot_dir = os.path.join('figures_LSTM',params.coin_name)
     params.model_name=args.model_name
     # create missing directories
     try:
@@ -183,25 +183,21 @@ if __name__ == '__main__':
     # use GPU if available
     cuda_exist =torch.cuda.is_available()
     # Set random seeds for reproducible experiments if necessary
+    
     if cuda_exist:
         params.device =torch.device("cuda")
         # torch.cuda.manual_seed(240)
         logger.info('Using Cuda...')
-        model  = NBeatsNet(
-        stack_types=(NBeatsNet.GENERIC_BLOCK, NBeatsNet.GENERIC_BLOCK),
-        forecast_length=params.forecast_length,
-        backcast_length=params.backcast_length,
-        hidden_layer_units=128,
+        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 5,
+        lstm_hidden_dim = 128,lstm_layers = 2,lstm_dropout = 0.2
+        
     ).to('cuda')
     else:
         params.device = torch.device('cpu')
         # torch.manual_seed(230)
         logger.info('Not using cuda...')
-        model  = NBeatsNet(
-        stack_types=(NBeatsNet.GENERIC_BLOCK, NBeatsNet.GENERIC_BLOCK),
-        forecast_length=params.forecast_length,
-        backcast_length=params.backcast_length,
-        hidden_layer_units=128,
+        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 5,
+        lstm_hidden_dim = 128,lstm_layers = 2,lstm_dropout = 0.2
     ).to('cpu')
     #net = model
     #utils.set_logger(os.path.join(model_dir, 'train.log'))
