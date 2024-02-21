@@ -76,8 +76,11 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                  #       test_batch[t,zero_index,0] = output[zero_index]
                     output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
                 forecast,_,_ = model(test_batch[t+1].unsqueeze(0), idx, hidden, cell,r=1)
-                forecast = v_batch[:,0] * forecast 
-                pred_i[iteration] = forecast
+                forecast = v_batch[:,0] * forecast
+                try:
+                    pred_i[iteration] = forecast
+                except:
+                    pdb.set_trace()
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
             samples = forecast # iter batch len -> 200 256 6
