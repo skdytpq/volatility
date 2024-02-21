@@ -66,7 +66,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
           mc_samples = 30
-          pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length)).to(params.device)
+          pred_i = torch.zeros((mc_samples,batch_size,params.forecast_length)).to(params.device)
           sample = True
           if sample:
             for iteration in range(mc_samples):
@@ -76,7 +76,6 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                  #       test_batch[t,zero_index,0] = output[zero_index]
                     output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
                 forecast,_,_ = model(test_batch[t+1].unsqueeze(0), idx, hidden, cell,r=1)
-                pdb.set_trace()
                 forecast = v_batch[:,0] * forecast 
                 pred_i[iteration] = forecast
             forecast = pred_i
