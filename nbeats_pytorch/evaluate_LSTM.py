@@ -59,8 +59,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           v_batch = v.to(torch.float32).to(params.device)
           hidden = model.init_hidden(batch_size).to(params.device)
           cell = model.init_cell(batch_size).to(params.device)
-          
-          labels_batch = labels[:,-1].to(torch.float32).to(params.device)
+          labels_batch = labels[:,-params.forecast_length:]
           test_batch = test_batch.permute(1, 0, 2).to(torch.float32).to(params.device)  # not scaled
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
