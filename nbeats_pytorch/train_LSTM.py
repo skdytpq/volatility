@@ -66,8 +66,8 @@ def train(model: nn.Module,
         labels_batch = labels_batch.permute(1, 0).to(torch.float32).to(params.device)  # not scaled
         idx = idx.unsqueeze(0).to(params.device)
        # loss = torch.zeros(1, device=params.device)
-        hidden = model.init_hidden(batch_size)
-        cell = model.init_cell(batch_size)
+        hidden = model.init_hidden(batch_size).to(params.device)
+        cell = model.init_cell(batch_size).to(params.device)
         out = 0
         for t in range(params.train_window):
             out +=1

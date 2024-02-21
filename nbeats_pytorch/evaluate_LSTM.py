@@ -67,6 +67,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           mc_samples = 30
           pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length))
           sample = True
+          pdb.set_trace()
           if sample:
             for iteration in range(mc_samples):
                 for t in range(47):
