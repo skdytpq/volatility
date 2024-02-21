@@ -115,6 +115,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
               print(predict_mu[0],predict_mu[1])
               print('Prediction------------------')
               predict_sigma = sample_sigma[combined_sample].data.cpu().numpy()
+              pdb.set_trace()
               plot_mu = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_mu), axis=1)
               plot_sigma = np.concatenate((test_batch[combined_sample].data.cpu().numpy(), predict_sigma), axis=1)
               plot_metrics = {_k: _v[combined_sample] for _k, _v in sample_metrics.items()}
