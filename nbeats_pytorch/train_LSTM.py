@@ -79,7 +79,7 @@ def train(model: nn.Module,
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
             else:
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=1)
-        loss_nbeat = loss_fn(output.permute(1,0),labels_batch[-1,:])
+        loss_nbeat = loss_fn(output.permute(1,0),labels_batch[-1,:].unsqueeze(0))
         loss_nbeat.backward()
         optimizer.step()
         loss = loss_nbeat/ params.train_window  # loss per timestep
