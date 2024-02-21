@@ -72,8 +72,8 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                     zero_index = (test_batch[t,:,0] == 0)
                     if t > 0 and torch.sum(zero_index) > 0:
                         test_batch[t,zero_index,0] = output[zero_index]
-                    output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell)
-                forecast,_,_ = model(test_batch, idx, hidden, cell)
+                    output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
+                forecast,_,_ = model(test_batch, idx, hidden, cell,r=1)
                 forecast = v_batch[:,0] * forecast 
                 pred_i[iteration] = forecast
             forecast = pred_i

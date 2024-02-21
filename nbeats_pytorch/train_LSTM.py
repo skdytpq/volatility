@@ -68,14 +68,18 @@ def train(model: nn.Module,
        # loss = torch.zeros(1, device=params.device)
         hidden = model.init_hidden(batch_size)
         cell = model.init_cell(batch_size)
+        out = 0
         for t in range(params.train_window):
+            out +=1
             # if z_t is missing, replace it by output mu from the last time step
             zero_index = (train_batch[t, :, 0] == 0)
             if t > 0 and torch.sum(zero_index) > 0:
                 train_batch[t, zero_index, 0] = output[zero_index]
-            output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell)
-        pdb.set_trace()
-        loss_nbeat = loss_fn(output,labels_batch[-1,:])
+            if out != params.train_window-1: 
+                output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
+            else:
+                output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=1)
+        loss_nbeat = loss_fn(output.permute(1,0),labels_batch[-1,:])
         loss_nbeat.backward()
         optimizer.step()
         loss = loss_nbeat/ params.train_window  # loss per timestep

@@ -35,6 +35,7 @@ class Net(nn.Module):
                             bias=True,
                             batch_first=False,
                             dropout=params.lstm_dropout)'''
+        self.fc = nn.Linear(lstm_hidden_dim , 1)
         # initialize LSTM forget gate bias to be 1 as recommanded by http://proceedings.mlr.press/v37/jozefowicz15.pdf
         for names in self.lstm._all_weights:
             for name in filter(lambda n: "bias" in n, names):
@@ -44,7 +45,7 @@ class Net(nn.Module):
                 bias.data[start:end].fill_(1.)
 
         self.relu = nn.ReLU()
-    def forward(self, x, idx, hidden, cell):
+    def forward(self, x, idx, hidden, cell,r):
         '''
         Predict mu and sigma of the distribution for z_t.
         Args:
@@ -58,9 +59,16 @@ class Net(nn.Module):
             hidden ([lstm_layers, batch_size, lstm_hidden_dim]): LSTM h from time step t
             cell ([lstm_layers, batch_size, lstm_hidden_dim]): LSTM c from time step t
         '''
-        onehot_embed = self.embedding(idx) #TODO: is it possible to do this only once per window instead of per step?
-        lstm_input = torch.cat((x, onehot_embed), dim=2)
-        output, (hidden, cell) = self.lstm(lstm_input, (hidden, cell))
+        if r == 0:
+            onehot_embed = self.embedding(idx) #TODO: is it possible to do this only once per window instead of per step?
+            lstm_input = torch.cat((x, onehot_embed), dim=2)
+            output, (hidden, cell) = self.lstm(lstm_input, (hidden, cell))
+        else:
+            onehot_embed = self.embedding(idx) #TODO: is it possible to do this only once per window instead of per step?
+            lstm_input = torch.cat((x, onehot_embed), dim=2)
+            output, (hidden, cell) = self.lstm(lstm_input, (hidden, cell))
+            output = output.squeeze(0)
+            output = self.fc(output)
         # use h from all three layers to calculate mu and sigma # softplus to make sure standard deviation is positive
         return output, hidden, cell
 
