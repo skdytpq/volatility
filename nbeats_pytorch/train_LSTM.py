@@ -72,9 +72,9 @@ def train(model: nn.Module,
         for t in range(params.train_window):
             out +=1
             # if z_t is missing, replace it by output mu from the last time step
-            zero_index = (train_batch[t, :, 0] == 0)
-            if t > 0 and torch.sum(zero_index) > 0:
-                train_batch[t, zero_index, 0] = output[zero_index]
+            zero_index = (train_batch[t, :, 0] == 0) # Zero Index인 Batch
+         #   if t > 0 and torch.sum(zero_index) > 0:
+         #       train_batch[t, zero_index, 0] = output[:,zero_index,:]
             if out != params.train_window: 
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
             else:
