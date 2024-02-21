@@ -186,7 +186,7 @@ if __name__ == '__main__':
         params.device =torch.device("cuda")
         # torch.cuda.manual_seed(240)
         logger.info('Using Cuda...')
-        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 5,
+        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 4,
         lstm_hidden_dim = 128,lstm_layers = 2,lstm_dropout = 0.2
         
     ).to('cuda')
@@ -194,7 +194,7 @@ if __name__ == '__main__':
         params.device = torch.device('cpu')
         # torch.manual_seed(230)
         logger.info('Not using cuda...')
-        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 5,
+        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 4,
         lstm_hidden_dim = 128,lstm_layers = 2,lstm_dropout = 0.2
     ).to('cpu')
 
