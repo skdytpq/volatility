@@ -11,12 +11,15 @@ import logging
 logger = logging.getLogger('DeepAR.Net')
 
 class Net(nn.Module):
-    def __init__(self, num_class , embedding_dim , cov_dim,lstm_hidden_dim,lstm_layers,lstm_dropout):
+    def __init__(self, num_class , embedding_dim , cov_dim,lstm_hidden_dim,lstm_layers,lstm_dropout,device):
         '''
         We define a recurrent network that predicts the future values of a time-dependent variable based on
         past inputs and covariates.
         '''
         super(Net, self).__init__()
+        self.lstm_hidden_dim = lstm_hidden_dim
+        self.lstm_layer = lstm_layers
+        self.device = device
         self.embedding = nn.Embedding(num_class,embedding_dim)
 
         self.lstm = nn.LSTM(input_size=1+cov_dim+embedding_dim,
@@ -61,10 +64,10 @@ class Net(nn.Module):
         return output, hidden, cell
 
     def init_hidden(self, input_size):
-        return torch.zeros(self.params.lstm_layers, input_size, self.params.lstm_hidden_dim, device=self.params.device)
+        return torch.zeros(self.lstm_layers, input_size, self.lstm_hidden_dim, device=self.device)
 
     def init_cell(self, input_size):
-        return torch.zeros(self.params.lstm_layers, input_size, self.params.lstm_hidden_dim, device=self.params.device)
+        return torch.zeros(self.lstm_layers, input_size, self.lstm_hidden_dim, device=self.device)
 
 
 def loss_fn(mu: Variable, sigma: Variable, labels: Variable):
