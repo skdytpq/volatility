@@ -75,11 +75,10 @@ def train(model: nn.Module,
             zero_index = (train_batch[t, :, 0] == 0)
             if t > 0 and torch.sum(zero_index) > 0:
                 train_batch[t, zero_index, 0] = output[zero_index]
-            if out != params.train_window-1: 
+            if out != params.train_window: 
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
             else:
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=1)
-        pdb.set_trace()
         loss_nbeat = loss_fn(output.permute(1,0),labels_batch[-1,:])
         loss_nbeat.backward()
         optimizer.step()
