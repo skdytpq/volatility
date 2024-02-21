@@ -64,10 +64,10 @@ class Net(nn.Module):
         return output, hidden, cell
 
     def init_hidden(self, input_size):
-        return torch.zeros(self.lstm_layers, input_size, self.lstm_hidden_dim, device=self.device)
+        return torch.zeros(self.lstm_layer, input_size, self.lstm_hidden_dim, device=self.device)
 
     def init_cell(self, input_size):
-        return torch.zeros(self.lstm_layers, input_size, self.lstm_hidden_dim, device=self.device)
+        return torch.zeros(self.lstm_layer, input_size, self.lstm_hidden_dim, device=self.device)
 
 
 def loss_fn(mu: Variable, sigma: Variable, labels: Variable):
