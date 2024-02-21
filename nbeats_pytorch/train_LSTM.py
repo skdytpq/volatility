@@ -65,7 +65,6 @@ def train(model: nn.Module,
         train_batch = train_batch.permute(1, 0, 2).to(torch.float32).to(params.device)  # not scaled
         labels_batch = labels_batch.permute(1, 0).to(torch.float32).to(params.device)  # not scaled
         idx = idx.unsqueeze(0).to(params.device)
-        pdb.set_trace()
        # loss = torch.zeros(1, device=params.device)
         hidden = model.init_hidden(batch_size)
         cell = model.init_cell(batch_size)
@@ -75,9 +74,8 @@ def train(model: nn.Module,
             if t > 0 and torch.sum(zero_index) > 0:
                 train_batch[t, zero_index, 0] = output[zero_index]
             output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell)
-            loss += loss_fn(output,labels_batch)
 
-        loss_nbeat = loss_fn(output,labels_batch)
+        loss_nbeat = loss_fn(output,labels_batch[-1,:])
         loss_nbeat.backward()
         optimizer.step()
         loss = loss_nbeat/ params.train_window  # loss per timestep
