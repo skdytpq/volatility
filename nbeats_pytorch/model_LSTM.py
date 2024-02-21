@@ -60,7 +60,9 @@ class Net(nn.Module):
             cell ([lstm_layers, batch_size, lstm_hidden_dim]): LSTM c from time step t
         '''
         if r == 0:
+            
             onehot_embed = self.embedding(idx) #TODO: is it possible to do this only once per window instead of per step?
+            pdb.set_trace()
             lstm_input = torch.cat((x, onehot_embed), dim=2)
             output, (hidden, cell) = self.lstm(lstm_input, (hidden, cell))
         else:
