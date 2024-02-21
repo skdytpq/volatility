@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 import logging
+import pdb
 
 logger = logging.getLogger('DeepAR.Net')
 
@@ -58,6 +59,7 @@ class Net(nn.Module):
             cell ([lstm_layers, batch_size, lstm_hidden_dim]): LSTM c from time step t
         '''
         onehot_embed = self.embedding(idx) #TODO: is it possible to do this only once per window instead of per step?
+        pdb.set_trace()
         lstm_input = torch.cat((x, onehot_embed), dim=2)
         output, (hidden, cell) = self.lstm(lstm_input, (hidden, cell))
         # use h from all three layers to calculate mu and sigma # softplus to make sure standard deviation is positive
