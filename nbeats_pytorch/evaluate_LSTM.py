@@ -53,7 +53,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
       # labels ([batch_size, train_window]): z_{1:T}.
       for i, (test_batch, id_batch, v, labels) in enumerate(tqdm(test_loader)):
           test_batch = test_batch.to(torch.float32).to(params.device)
-          batch_size = test_batch.shape[1]
+          batch_size = test_batch.shape[0]
           id_batch = id_batch.unsqueeze(0).to(params.device)
           idx = id_batch.to(params.device)
           v_batch = v.to(torch.float32).to(params.device)
