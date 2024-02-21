@@ -76,15 +76,13 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                  #       test_batch[t,zero_index,0] = output[zero_index]
                     output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
                 forecast,_,_ = model(test_batch[t+1].unsqueeze(0), idx, hidden, cell,r=1)
-                forecast = v_batch[:,0] * forecast
-                try:
-                    pred_i[iteration] = forecast
-                except:
-                    pdb.set_trace()
+                forecast = forecast
+            pdb.set_trace()
             forecast = pred_i
             forecast = forecast.to(params.device) #iter batch len -> batch iter len
             samples = forecast # iter batch len -> 200 256 6
             sample_mu = torch.mean(forecast,axis=0 )
+
             sample_sigma = torch.std(forecast,axis=0) #* v_1
             raw_metrics = utils.update_metrics(raw_metrics, forecast,  sample_mu, labels_batch , params.forecast_length, samples, relative = params.relative_metrics)
           else:
