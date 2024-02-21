@@ -74,7 +74,7 @@ def train(model: nn.Module,
             if t > 0 and torch.sum(zero_index) > 0:
                 train_batch[t, zero_index, 0] = output[zero_index]
             output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell)
-
+        pdb.set_trace()
         loss_nbeat = loss_fn(output,labels_batch[-1,:])
         loss_nbeat.backward()
         optimizer.step()
