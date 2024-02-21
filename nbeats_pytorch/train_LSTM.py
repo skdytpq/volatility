@@ -79,6 +79,7 @@ def train(model: nn.Module,
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
             else:
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=1)
+        pdb.set_trace()
         loss_nbeat = loss_fn(output.permute(1,0),labels_batch[-1,:])
         loss_nbeat.backward()
         optimizer.step()
