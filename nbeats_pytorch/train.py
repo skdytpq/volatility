@@ -62,7 +62,6 @@ def train(model: nn.Module,
     for i, (train_batch, idx, labels_batch) in enumerate(tqdm(train_loader)):
         optimizer.zero_grad()
         batch_size = train_batch.shape[0]
-        pdb.set_trace()
         train_batch = train_batch.to(torch.float32).to(params.device)  # not scaled
         labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled 24 , batch , 1
         labels_batch = labels_batch[:,-params.forecast_length:]

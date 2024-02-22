@@ -71,7 +71,6 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           v_1 = v_batch[:,1].unsqueeze(1)
           v_ = v_.expand(v_batch.shape[0],params.forecast_length)
           v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
-          pdb.set_trace()
           if sample:
             for iteration in range(mc_samples):
                 _, forecast = model(test_batch)
