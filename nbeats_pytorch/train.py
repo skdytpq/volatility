@@ -69,6 +69,7 @@ def train(model: nn.Module,
         
         #labels_batch = train_batch.unsqueeze(-1)[:,:,-1]
         idx = idx.unsqueeze(0).to(params.device)
+        pdb.set_trace()
         _, forecast = model(train_batch)
         loss_nbeat = loss_fn(forecast,labels_batch)
         loss_nbeat.backward()

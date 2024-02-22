@@ -76,7 +76,6 @@ def train(model: nn.Module,
          #   if t > 0 and torch.sum(zero_index) > 0:
          #       train_batch[t, zero_index, 0] = output[:,zero_index,:]
             if out != params.train_window: 
-                pdb.set_trace() 
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
             else:
                 output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=1)
