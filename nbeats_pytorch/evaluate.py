@@ -39,7 +39,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
         plot_num: (-1): evaluation from evaluate.py; else (epoch): evaluation on epoch
         sample: (boolean) do ancestral sampling or directly use output mu from last time step
     '''
-    model.train() # MCDropout
+    model.eval() # MCDropout
     with torch.no_grad():
       plot_batch = np.random.randint(len(test_loader)-1)
 
@@ -64,13 +64,14 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
           test_batch = test_batch[:,:-params.forecast_length,:].squeeze(-1)# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
-          mc_samples = 30
+          mc_samples = 1
           pred_i = torch.zeros((mc_samples,test_batch.shape[0],params.forecast_length))
           sample = True
           v_ = v_batch[:,0].unsqueeze(1)
           v_1 = v_batch[:,1].unsqueeze(1)
           v_ = v_.expand(v_batch.shape[0],params.forecast_length)
           v_1 = v_1.expand(v_batch.shape[0],params.forecast_length)
+          pdb.set_trace()
           if sample:
             for iteration in range(mc_samples):
                 _, forecast = model(test_batch)

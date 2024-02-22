@@ -216,7 +216,7 @@ if __name__ == '__main__':
     test_loader = DataLoader(test_set, batch_size=params.predict_batch, sampler=RandomSampler(test_set),num_workers=4)
     logger.info('Loading complete.')
     logger.info(f'Model: \n{str(model)}')
-    optimizer = optim.Adam(model.parameters(), lr=params.learning_rate,weight_decay= 0.001)
+    optimizer = optim.Adam(model.parameters(), lr=params.learning_rate)
 
     # fetch loss function
     loss_fn =  nn.MSELoss()

@@ -23,13 +23,13 @@ class NBeatsNet(nn.Module):
             device=torch.device('cuda')  , 
             stack_types=(TREND_BLOCK, SEASONALITY_BLOCK),
             nb_blocks_per_stack=3,
-            forecast_length=5,
-            backcast_length=10,
+            forecast_length=1,
+            backcast_length=47,
             thetas_dim=(4, 8),
             share_weights_in_stack=False,
             hidden_layer_units=256,
             nb_harmonics=None,
-            drop_rate = 0.5
+            drop_rate = 0.2
     ):
         super(NBeatsNet, self).__init__()
         self.forecast_length = forecast_length
