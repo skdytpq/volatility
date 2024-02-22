@@ -153,7 +153,7 @@ def plot_eight_windows(plot_dir,
         ax[k].fill_between(x[predict_start :], predict_values[m, predict_start :] - 2 * predict_sigma[m, predict_start:],
                          predict_values[m, predict_start:] + 2 * predict_sigma[m, predict_start:], color='blue',
                          alpha=0.2)
-        ax[k].plot(x, labels[m, :], color='r')
+        ax[k].plot(x, labels[m, :], color='r')# Labels 는 실제 라벨이며 Predict는 한 스텝 이전의 정보를 갖고있음
         ax[k].axvline(predict_start, color='g', linestyle='dashed')
 
         #metrics = utils.final_metrics_({_k: [_i[k] for _i in _v] for _k, _v in plot_metrics.items()})
