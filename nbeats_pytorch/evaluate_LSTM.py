@@ -64,7 +64,7 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
          # labels_batch = labels_batch.to(torch.float32).to(params.device)  # not scaled# 23 , batch , 1 backcast = 1
           #labels_batch = test_batch.unsqueeze(-1)[:,:,-1]
       #    idx = idx.unsqueeze(0).to(params.device)
-          mc_samples = 100
+          mc_samples = 1
           pred_i = torch.zeros((mc_samples,batch_size,params.forecast_length)).to(params.device)
           sample = True
           model.eval()
@@ -74,7 +74,6 @@ def evaluate(model, loss_fn, test_loader, params, plot_num, sample=True):
                 #   if t > 0 and torch.sum(zero_index) > 0:
                 #       test_batch[t,zero_index,0] = output[zero_index]
                 output,hidden,cell = model(test_batch[t].unsqueeze(0), id_batch, hidden, cell,r=0)
-            model.train()
             for iteration in range(mc_samples):
                 forecast,_,_ = model(test_batch[t+1].unsqueeze(0), idx, hidden, cell,r=1)
                 forecast = forecast*v_batch[:,0].unsqueeze(1)
