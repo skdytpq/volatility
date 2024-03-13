@@ -5,7 +5,7 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 import argparse
 import logging
 import os
-from model_LSTM import Net
+from sqf_rnn import SQF_RNN,LinearSplineCRPS
 import numpy as np
 import torch
 from torch import nn
@@ -26,7 +26,7 @@ logger = logging.getLogger('DeepAR.Train')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default='', help='Name of the dataset')
-parser.add_argument('--data-folder', default='../traindata', help='Parent dir of the dataset')
+parser.add_argument('--data-folder', default=os.path.join('..',os.path.join('..','trainfull')), help='Parent dir of the dataset')
 parser.add_argument('--model-name', default='content', help='Directory containing params.json')
 parser.add_argument('--relative-metrics', action='store_true', help='Whether to normalize the metrics by label scales')
 parser.add_argument('--sampling', action='store_true', help='Whether to sample during evaluation')
@@ -34,7 +34,7 @@ parser.add_argument('--save-best', action='store_true', help='Whether to save be
 parser.add_argument('--restore-file', default=None,
                     help='Optional, name of the file in --model_dir containing weights to reload before \
                     training')  # 'best' or 'epoch_#'
-parser.add_argument('--coin_name', default='coin_full')  # 'best' or 'epoch_#'
+parser.add_argument('--coin_name', default='coin_5m_logreturn')  # 'best' or 'epoch_#'
 
 def train(model: nn.Module,
           optimizer: optim,
@@ -62,27 +62,17 @@ def train(model: nn.Module,
     for i, (train_batch, idx, labels_batch) in enumerate(tqdm(train_loader)):
         optimizer.zero_grad()
         batch_size = train_batch.shape[0]
-        train_batch = train_batch.permute(1, 0, 2).to(torch.float32).to(params.device)  # not scaled
-        labels_batch = labels_batch.permute(1, 0).to(torch.float32).to(params.device)  # not scaled
         idx = idx.unsqueeze(0).to(params.device)
+        idx = idx.permute(1,0)
        # loss = torch.zeros(1, device=params.device)
-        hidden = model.init_hidden(batch_size).to(params.device)
-        cell = model.init_cell(batch_size).to(params.device)
-        out = 0
-        for t in range(params.train_window):
-            out +=1
-            # if z_t is missing, replace it by output mu from the last time step
-            zero_index = (train_batch[t, :, 0] == 0) # Zero Index인 Batch
-         #   if t > 0 and torch.sum(zero_index) > 0:
-         #       train_batch[t, zero_index, 0] = output[:,zero_index,:]
-            if out != params.train_window: 
-                output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=0)
-            else:
-                output, hidden, cell = model(train_batch[t].unsqueeze_(0).clone(), idx, hidden, cell,r=1)
-        loss_nbeat = loss_fn(output.permute(1,0),labels_batch[-1,:].unsqueeze(0))
-        loss_nbeat.backward()
+        gamma,beta,delta = model(train_batch,idx)
+        alpha_tilde = model.quantile_inverse(train_batch, gamma, beta)
+        predict = model.quantile_function(alpha_tilde, gamma, beta,delta)
+        pdb.set_trace()
+        loss = loss_fn(labels_batch,predict)
+        loss.backward()
         optimizer.step()
-        loss = loss_nbeat/ params.train_window  # loss per timestep
+        #loss = loss_nbeat/ params.train_window  # loss per timestep
         loss_epoch[i] = loss
         if i % 1000 == 0:
             test_metrics = evaluate(model, loss_fn, test_loader, params, epoch, sample=args.sampling)
@@ -197,22 +187,19 @@ if __name__ == '__main__':
         params.device =torch.device("cuda")
         # torch.cuda.manual_seed(240)
         logger.info('Using Cuda...')
-        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 4,
-        lstm_hidden_dim = 128,lstm_layers = 2,lstm_dropout = 0.2,device = params.device
+        model  = SQF_RNN(d_input= 5,d_model = 128,tau = 48,n_layers = 3 , M = 47 , device = params.device
         
     ).to('cuda')
     else:
         params.device = torch.device('cpu')
         # torch.manual_seed(230)
         logger.info('Not using cuda...')
-        model  = Net(num_class = 15 , embedding_dim  = 20, cov_dim = 4,
-        lstm_hidden_dim = 128,lstm_layers = 2,lstm_dropout = 0.2,device = params.device
+        model  = SQF_RNN(d_input= 5,d_model = 128,tau = 48,n_layers = 3 , M = 47 ,device = params.device
     ).to('cpu')
     #net = model
     #utils.set_logger(os.path.join(model_dir, 'train.log'))
     utils.set_logger(os.path.join('train.log'))
     logger.info('Loading the datasets...')
-    pdb.set_trace()
     train_set = TrainDataset(data_dir, params.coin_name, params.num_class)
     test_set = TestDataset(data_dir, params.coin_name, params.num_class)
     sampler = WeightedSampler(data_dir, params.coin_name) # Use weighted sampler instead of random sampler
@@ -223,7 +210,7 @@ if __name__ == '__main__':
     optimizer = optim.Adam(model.parameters(), lr=params.learning_rate,weight_decay= 0.001)
 
     # fetch loss function
-    loss_fn =  nn.MSELoss()
+    loss_fn =  LinearSplineCRPS(d_input =6,device = params.device)
     # Train the model
     logger.info('Starting training for {} epoch(s)'.format(params.num_epochs))
     train_and_evaluate(model,

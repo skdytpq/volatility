@@ -3166,3 +3166,469 @@ NBeatsNet(
 [00:18:39] DeepAR.Train: Starting training for 150 epoch(s)
 [00:18:39] DeepAR.Train: begin training and evaluation
 [00:18:39] DeepAR.Train: Epoch 1/150
+[19:19:03] DeepAR.Train: Loading the datasets...
+[19:21:18] DeepAR.Train: Loading the datasets...
+[11:36:28] DeepAR.Train: Loading the datasets...
+[11:37:39] DeepAR.Train: Loading the datasets...
+[11:41:57] DeepAR.Train: Loading the datasets...
+[11:42:50] DeepAR.Train: Loading the datasets...
+[11:43:41] DeepAR.Train: Loading the datasets...
+[11:45:13] DeepAR.Train: Loading the datasets...
+[11:45:24] DeepAR.Train: Loading the datasets...
+[11:45:25] DeepAR.Data: train_len: 9900
+[11:45:25] DeepAR.Data: building datasets from ..\..\trainfull\...
+[11:45:28] DeepAR.Data: test_len: 6398
+[11:45:28] DeepAR.Data: building datasets from ..\..\trainfull\...
+[11:45:31] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[11:45:31] DeepAR.Data: num samples: 9900
+[11:45:35] DeepAR.Train: Loading complete.
+[11:52:44] DeepAR.Train: Loading the datasets...
+[11:52:47] DeepAR.Data: train_len: 9900
+[11:52:47] DeepAR.Data: building datasets from ..\..\trainfull\...
+[11:52:47] DeepAR.Data: test_len: 6398
+[11:52:47] DeepAR.Data: building datasets from ..\..\trainfull\...
+[11:52:47] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[11:52:47] DeepAR.Data: num samples: 9900
+[11:52:47] DeepAR.Train: Loading complete.
+[11:52:47] DeepAR.Train: Model: 
+SQF_RNN(
+  (encoder): Encoder(
+    (lstm): LSTM(6, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=288, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=6, bias=True)
+)
+[11:52:47] DeepAR.Train: Starting training for 50 epoch(s)
+[11:52:47] DeepAR.Train: begin training and evaluation
+[11:52:47] DeepAR.Train: Epoch 1/50
+[11:58:15] DeepAR.Train: Loading the datasets...
+[11:58:15] DeepAR.Data: train_len: 9900
+[11:58:15] DeepAR.Data: building datasets from ..\..\trainfull\...
+[11:58:15] DeepAR.Data: test_len: 6398
+[11:58:15] DeepAR.Data: building datasets from ..\..\trainfull\...
+[11:58:15] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[11:58:15] DeepAR.Data: num samples: 9900
+[11:58:15] DeepAR.Train: Loading complete.
+[11:58:15] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 4)
+  (encoder): Encoder(
+    (lstm): LSTM(6, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=288, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=6, bias=True)
+)
+[11:58:15] DeepAR.Train: Starting training for 50 epoch(s)
+[11:58:15] DeepAR.Train: begin training and evaluation
+[11:58:15] DeepAR.Train: Epoch 1/50
+[12:03:12] DeepAR.Train: Loading the datasets...
+[12:03:12] DeepAR.Data: train_len: 9900
+[12:03:12] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:03:12] DeepAR.Data: test_len: 6398
+[12:03:12] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:03:12] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:03:12] DeepAR.Data: num samples: 9900
+[12:03:12] DeepAR.Train: Loading complete.
+[12:03:12] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:03:13] DeepAR.Train: Starting training for 50 epoch(s)
+[12:03:13] DeepAR.Train: begin training and evaluation
+[12:03:13] DeepAR.Train: Epoch 1/50
+[12:03:31] DeepAR.Train: Loading the datasets...
+[12:03:31] DeepAR.Data: train_len: 9900
+[12:03:31] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:03:31] DeepAR.Data: test_len: 6398
+[12:03:31] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:03:31] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:03:31] DeepAR.Data: num samples: 9900
+[12:03:31] DeepAR.Train: Loading complete.
+[12:03:31] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:03:32] DeepAR.Train: Starting training for 50 epoch(s)
+[12:03:32] DeepAR.Train: begin training and evaluation
+[12:03:32] DeepAR.Train: Epoch 1/50
+[12:08:55] DeepAR.Train: Loading the datasets...
+[12:08:55] DeepAR.Data: train_len: 9900
+[12:08:55] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:08:55] DeepAR.Data: test_len: 6398
+[12:08:55] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:08:55] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:08:55] DeepAR.Data: num samples: 9900
+[12:08:55] DeepAR.Train: Loading complete.
+[12:08:55] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:08:56] DeepAR.Train: Starting training for 50 epoch(s)
+[12:08:56] DeepAR.Train: begin training and evaluation
+[12:08:56] DeepAR.Train: Epoch 1/50
+[12:09:42] DeepAR.Train: Loading the datasets...
+[12:09:42] DeepAR.Data: train_len: 9900
+[12:09:42] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:09:42] DeepAR.Data: test_len: 6398
+[12:09:42] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:09:42] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:09:42] DeepAR.Data: num samples: 9900
+[12:09:42] DeepAR.Train: Loading complete.
+[12:09:42] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:09:43] DeepAR.Train: Starting training for 50 epoch(s)
+[12:09:43] DeepAR.Train: begin training and evaluation
+[12:09:43] DeepAR.Train: Epoch 1/50
+[12:11:26] DeepAR.Train: Loading the datasets...
+[12:11:26] DeepAR.Data: train_len: 9900
+[12:11:26] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:11:26] DeepAR.Data: test_len: 6398
+[12:11:26] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:11:26] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:11:26] DeepAR.Data: num samples: 9900
+[12:11:26] DeepAR.Train: Loading complete.
+[12:11:26] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:11:27] DeepAR.Train: Starting training for 50 epoch(s)
+[12:11:27] DeepAR.Train: begin training and evaluation
+[12:11:27] DeepAR.Train: Epoch 1/50
+[12:19:14] DeepAR.Train: Loading the datasets...
+[12:19:14] DeepAR.Data: train_len: 9900
+[12:19:14] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:19:14] DeepAR.Data: test_len: 6398
+[12:19:14] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:19:14] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:19:14] DeepAR.Data: num samples: 9900
+[12:19:14] DeepAR.Train: Loading complete.
+[12:19:14] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:19:14] DeepAR.Train: Starting training for 50 epoch(s)
+[12:19:14] DeepAR.Train: begin training and evaluation
+[12:19:14] DeepAR.Train: Epoch 1/50
+[12:24:35] DeepAR.Train: Loading the datasets...
+[12:24:35] DeepAR.Data: train_len: 9900
+[12:24:35] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:24:35] DeepAR.Data: test_len: 6398
+[12:24:35] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:24:35] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:24:35] DeepAR.Data: num samples: 9900
+[12:24:35] DeepAR.Train: Loading complete.
+[12:24:35] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:24:35] DeepAR.Train: Starting training for 50 epoch(s)
+[12:24:35] DeepAR.Train: begin training and evaluation
+[12:24:35] DeepAR.Train: Epoch 1/50
+[12:24:55] DeepAR.Train: Loading the datasets...
+[12:24:55] DeepAR.Data: train_len: 9900
+[12:24:55] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:24:55] DeepAR.Data: test_len: 6398
+[12:24:55] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:24:55] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:24:55] DeepAR.Data: num samples: 9900
+[12:24:55] DeepAR.Train: Loading complete.
+[12:24:55] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(10, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=480, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=10, bias=True)
+)
+[12:24:56] DeepAR.Train: Starting training for 50 epoch(s)
+[12:24:56] DeepAR.Train: begin training and evaluation
+[12:24:56] DeepAR.Train: Epoch 1/50
+[12:29:04] DeepAR.Train: Loading the datasets...
+[12:29:04] DeepAR.Data: train_len: 9900
+[12:29:04] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:29:04] DeepAR.Data: test_len: 6398
+[12:29:04] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:29:04] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:29:04] DeepAR.Data: num samples: 9900
+[12:29:04] DeepAR.Train: Loading complete.
+[12:29:04] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:29:05] DeepAR.Train: Starting training for 50 epoch(s)
+[12:29:05] DeepAR.Train: begin training and evaluation
+[12:29:05] DeepAR.Train: Epoch 1/50
+[12:31:12] DeepAR.Train: Loading the datasets...
+[12:31:12] DeepAR.Data: train_len: 9900
+[12:31:12] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:31:12] DeepAR.Data: test_len: 6398
+[12:31:12] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:31:12] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:31:12] DeepAR.Data: num samples: 9900
+[12:31:12] DeepAR.Train: Loading complete.
+[12:31:12] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:31:13] DeepAR.Train: Starting training for 50 epoch(s)
+[12:31:13] DeepAR.Train: begin training and evaluation
+[12:31:13] DeepAR.Train: Epoch 1/50
+[12:32:38] DeepAR.Train: Loading the datasets...
+[12:32:38] DeepAR.Data: train_len: 9900
+[12:32:38] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:32:38] DeepAR.Data: test_len: 6398
+[12:32:38] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:32:38] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:32:38] DeepAR.Data: num samples: 9900
+[12:32:38] DeepAR.Train: Loading complete.
+[12:32:38] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:32:39] DeepAR.Train: Starting training for 50 epoch(s)
+[12:32:39] DeepAR.Train: begin training and evaluation
+[12:32:39] DeepAR.Train: Epoch 1/50
+[12:32:54] DeepAR.Train: Loading the datasets...
+[12:32:54] DeepAR.Data: train_len: 9900
+[12:32:54] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:32:54] DeepAR.Data: test_len: 6398
+[12:32:54] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:32:54] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:32:54] DeepAR.Data: num samples: 9900
+[12:32:54] DeepAR.Train: Loading complete.
+[12:32:54] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:32:55] DeepAR.Train: Starting training for 50 epoch(s)
+[12:32:55] DeepAR.Train: begin training and evaluation
+[12:32:55] DeepAR.Train: Epoch 1/50
+[12:34:56] DeepAR.Train: Loading the datasets...
+[12:34:56] DeepAR.Data: train_len: 9900
+[12:34:56] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:34:56] DeepAR.Data: test_len: 6398
+[12:34:56] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:34:56] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:34:56] DeepAR.Data: num samples: 9900
+[12:34:56] DeepAR.Train: Loading complete.
+[12:34:56] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:34:56] DeepAR.Train: Starting training for 50 epoch(s)
+[12:34:56] DeepAR.Train: begin training and evaluation
+[12:34:56] DeepAR.Train: Epoch 1/50
+[12:36:24] DeepAR.Train: Loading the datasets...
+[12:36:24] DeepAR.Data: train_len: 9900
+[12:36:24] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:36:24] DeepAR.Data: test_len: 6398
+[12:36:24] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:36:24] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:36:24] DeepAR.Data: num samples: 9900
+[12:36:24] DeepAR.Train: Loading complete.
+[12:36:24] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:36:24] DeepAR.Train: Starting training for 50 epoch(s)
+[12:36:24] DeepAR.Train: begin training and evaluation
+[12:36:24] DeepAR.Train: Epoch 1/50
+[12:43:46] DeepAR.Train: Loading the datasets...
+[12:43:46] DeepAR.Data: train_len: 9900
+[12:43:46] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:43:46] DeepAR.Data: test_len: 6398
+[12:43:46] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:43:46] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:43:46] DeepAR.Data: num samples: 9900
+[12:43:46] DeepAR.Train: Loading complete.
+[12:43:46] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:43:47] DeepAR.Train: Starting training for 50 epoch(s)
+[12:43:47] DeepAR.Train: begin training and evaluation
+[12:43:47] DeepAR.Train: Epoch 1/50
+[12:44:57] DeepAR.Train: Loading the datasets...
+[12:44:57] DeepAR.Data: train_len: 9900
+[12:44:57] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:44:57] DeepAR.Data: test_len: 6398
+[12:44:57] DeepAR.Data: building datasets from ..\..\trainfull\...
+[12:44:57] DeepAR.Data: weights: tensor([0.0001, 0.0001, 0.0001,  ..., 0.0001, 0.0001, 0.0001],
+       dtype=torch.float64)
+[12:44:57] DeepAR.Data: num samples: 9900
+[12:44:57] DeepAR.Train: Loading complete.
+[12:44:57] DeepAR.Train: Model: 
+SQF_RNN(
+  (embedding): Embedding(14, 5)
+  (encoder): Encoder(
+    (lstm): LSTM(5, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (decoder): Decoder(
+    (lstm): LSTM(128, 128, num_layers=3, batch_first=True, dropout=0.05)
+  )
+  (beta_map): Linear(in_features=128, out_features=240, bias=True)
+  (softplus): Softplus(beta=1, threshold=20)
+  (gamma_map): Linear(in_features=128, out_features=5, bias=True)
+)
+[12:44:58] DeepAR.Train: Starting training for 50 epoch(s)
+[12:44:58] DeepAR.Train: begin training and evaluation
+[12:44:58] DeepAR.Train: Epoch 1/50
